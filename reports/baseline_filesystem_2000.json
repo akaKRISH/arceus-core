@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-10-23T08:29:40Z",
+  "environment": {
+    "platform": "Windows-11-10.0.26300-SP0",
+    "python": "3.13.15",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "logical_cpus": 12,
+    "machine": "AMD64"
+  },
+  "fixture": {
+    "requested_files": 2000,
+    "requested_dirs": 20
+  },
+  "index": {
+    "files": 2000,
+    "dirs": 40,
+    "db_bytes": 999424,
+    "bytes_per_entry": 489.91
+  },
+  "scans": {
+    "first_scan_seconds": 0.126,
+    "second_scan_seconds": 0.118,
+    "files_per_second_first_scan": 15871.1,
+    "idempotent_rescan_marked_missing": 0,
+    "python_heap_peak_mib": 1.4,
+    "deleted_files": 200,
+    "reconcile_scan_seconds": 0.135,
+    "reconciled_missing_entries": 200,
+    "missing_rows_after": 200,
+    "wal_checkpoint": 0
+  },
+  "search": {
+    "exact_name": {
+      "median_ms": 0.614,
+      "p95_ms": 0.839,
+      "hits": 1
+    },
+    "prefix": {
+      "median_ms": 1.203,
+      "p95_ms": 1.564,
+      "hits": 20
+    },
+    "common_substring_limited": {
+      "median_ms": 1.345,
+      "p95_ms": 1.624,
+      "hits": 20
+    },
+    "path_only": {
+      "median_ms": 0.984,
+      "p95_ms": 1.546,
+      "hits": 20
+    },
+    "no_match_worst_case": {
+      "median_ms": 0.472,
+      "p95_ms": 0.65,
+      "hits": 0
+    }
+  }
+}

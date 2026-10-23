@@ -1,0 +1,46 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Local runtime data: indexes, databases, private traces, and logs
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+local-data/
+private-traces/
+logs/
+
+# Secrets and machine-specific settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Model artifacts (do not check large weights into Git)
+models/
+checkpoints/
+*.gguf
+*.safetensors
+*.pt
+*.pth
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

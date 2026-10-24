@@ -17,7 +17,7 @@ The initial interface is a Python CLI. A future desktop interface calls stable c
 - Reconciler: updates changed entries and safely marks/removes stale rows only when scan coverage is known.
 - Search: exact/prefix/substring filename and path matching, with clearly documented ranking.
 - Graph query service: retrieves parent-child and root-membership relationships.
-- Model adapter: optional provider boundary for local inference.
+- Model adapter: optional provider boundary for local inference, with typed requests/responses, offline enforcement, timeouts, cancellation, limits, and structured-output contracts.
 - Agent controller: proposes, validates, executes, and verifies bounded steps.
 - Memory/skill service: manages time-stamped, provenance-backed records with invalidation rules.
 - Evaluator: runs reproducible task sets and records metrics.
@@ -50,21 +50,25 @@ Do not add embeddings until a benchmark shows that graph/text retrieval has an i
 
 ### 6. Local model adapter
 
-Define an interface for model identity/version, structured input/output, timeouts, cancellation, context/size limits when available, and timing/token/resource measurements. Model weights are optional and selected by the user. Do not auto-download weights or require an external API.
+`arceus_core.inference` defines the optional boundary: `InferenceRequest`/`InferenceResponse`, backend and model identity, capabilities, cooperative cancellation, timeout enforcement, input/output character limits, latency/resource metrics, and `OutputContract` validation. `LocalInference` rejects non-offline backends and wraps unexpected backend failures as explicit `InferenceError` subclasses. The deterministic `FakeInferenceBackend` is test-only and is marked as such; it is never presented as a real model.
+
+No backend is registered or loaded implicitly. The filesystem index, search, graph, and CLI must remain fully functional when inference is disabled or unavailable. Model weights are optional and selected by the user; do not auto-download weights or require an external/cloud API.
 
 ### 7. Agent controller
 
-Suggested state machine:
+**Implemented (v0, read-only):** `arceus_core.controller.CognitiveController` accepts a task and returns one validated `Proposal` from the permitted read-only set (`search_files`, `graph_children`, `graph_ancestors`, `ask_clarification`, `abstain`). It classifies the task deterministically, plans through the optional `LocalInference` boundary when a backend is provided, re-validates every model proposal against a strict typed contract, resolves all path arguments inside registered roots (model safety claims are never trusted), and falls back to an index-aware deterministic policy whenever the model is unavailable or invalid. It has no execute method; execution and verification are implemented separately (section 8).
 
-`RECEIVED → PLAN_PROPOSED → VALIDATED → EXECUTING → VERIFYING → COMPLETED | FAILED | NEEDS_APPROVAL`
+Model outputs never bypass validation. Writes, installs, shell commands, moves, and deletion require explicit approval and narrowly scoped operations.
 
-Every loop has a maximum step count, timeout, cancellation path, tool allowlist, and structured trace. Model outputs never bypass validation. Start with read-only tools. Writes, installs, shell commands, moves, and deletion require explicit approval and narrowly scoped operations.
+### 8. Bounded task workflow (implemented, Phase 5)
 
-### 8. Memory and skills
+`arceus_core.executor.ProposalExecutor` executes an already validated proposal through the same application-level validation for every origin (model, deterministic policy, fallback), and only the three allow-listed read-only operations (`search_files`, `graph_children`, `graph_ancestors`) against the existing search/graph services; `ask_clarification`/`abstain` are terminal and never execute. `arceus_core.verifier.verify_execution` independently and deterministically checks the original task, the validated action, and the actual tool result (search hits must satisfy the query; children must be direct; ancestors must match the path-prefix chain; content questions can never be certified from metadata); uncertain evidence is downgraded to `unverified`/`incomplete` instead of forced success. `arceus_core.workflow.TaskWorkflow` performs at most one validated read-only tool action per task and returns a structured, attributable `WorkflowResult` with explicit origin, rejection stage, and verification status. The controller keeps its state machine implicit in these callers; every stage is bounded (single action, timeouts, evidence limits).
+
+### 9. Memory and skills
 
 A stored fact needs source/provenance, observed-at time, valid-time where relevant, confidence/status, and invalidation/update behavior. A skill needs preconditions, steps, expected effects, allowed tools, validation, version, and a test fixture. A previous success does not imply future safety.
 
-### 9. Desktop UI
+### 10. Desktop UI
 
 Only after the core APIs stabilize: evaluate Tauri + React + TypeScript with Rust adapters for native functionality. The UI should provide root selection, search results, provenance, permission controls, task traces, cancel, and confirmation for sensitive actions.
 

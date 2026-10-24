@@ -54,3 +54,65 @@ Ablate one component at a time where practical. Ensure variants use the same mod
 ## First baseline
 
 For the first filesystem milestone, use synthetic temporary directories. Measure scan duration, file/directory counts, search latency, SQLite file size, update/reconciliation correctness, and failure behavior. Never benchmark against a user's personal drive by default.
+
+## Phase 3.1 — frozen held-out retrieval protocol
+
+The graph evaluation now uses a frozen three-system protocol. Its full results are in
+[`reports/graph_retrieval_evaluation_v2.md`](reports/graph_retrieval_evaluation_v2.md).
+
+### Frozen split and versions
+
+- Benchmark: `graph-retrieval-v2`; fixture: `synthetic-fs-v2`; configuration:
+  `graph-retrieval-v2-frozen-1`.
+- Development seeds (5): `20261023`–`20261027`.
+- Held-out seeds (10): `731001`–`731010`.
+- 35 tasks per seed; 525 task instances across all seeds; 3 timed repetitions per
+  task/system.
+- The held-out seed list and retrieval logic are frozen before the held-out run. Any
+  change to either defines a new configuration and requires a new artifact.
+
+### Systems
+
+1. `path_only`: production search with documented filters only.
+2. `path_derived`: a non-graph control that reads scalar index metadata through an
+   explicit read-only view and reconstructs parents, depth, descendants, and
+   directory scope from normalized relative paths. It must not import or call the
+   graph API, must not copy the production graph implementation, and must not
+   receive expected answers.
+3. `graph_assisted`: production search plus the production graph queries.
+
+All systems receive the same `RetrievalSpec` (task id, category, kind, query text, and
+parameters). Expected targets and evidence are never passed to a retriever. The
+harness scores them separately.
+
+### Procedure per seed
+
+1. Generate a fresh synthetic fixture from the seed and verify it against disk.
+2. Register the fixture as an isolated root and scan it.
+3. Apply the planned deletions and scan again; verify present/missing counts.
+4. Validate every expected target and evidence label against the generated
+   filesystem and the independent fixture model.
+5. Run all three systems on identical task specs.
+6. Warm up once, then time the configured repetitions. Compare targets, evidence, and
+   notes across repetitions and report any nondeterminism.
+7. Aggregate by task, category, seed, and split; clean up the temporary workspace.
+
+### Metrics and denominators
+
+- Success: exact set equality, all task instances.
+- Macro target P/R/F1: tasks with non-empty expected targets; no-result tasks excluded.
+- Macro evidence P/R/F1: tasks with non-empty expected evidence.
+- Top-1: tasks with exactly one expected target.
+- No-result false-positive rate: tasks whose kind is `no_result`, not every task with
+  an empty expected set.
+- Latency: median/p95 over timed repetitions; exploratory and not a performance claim.
+- Paired comparisons: per `(seed, task)` success changes, reported as descriptive
+  counts. Do not present repeated timings as independent evidence.
+
+### Reporting requirements
+
+Report development and held-out splits separately, per-category results, per-seed
+success, failures and unsupported tasks, the frozen configuration, and the exact
+artifact. A 100% score on a finite synthetic suite is never proof of generalization.
+Distinguish a graph-vs-path-only capability result from a graph-vs-path-derived
+information result; they answer different questions.

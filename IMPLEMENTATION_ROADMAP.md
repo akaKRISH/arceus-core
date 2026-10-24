@@ -1,6 +1,6 @@
 # Implementation Roadmap and Phase Gates
 
-**Status (2026-10-23):** Phase 0 complete. Phase 1 complete. Phase 2 complete on Windows (metadata index, reconciliation, search, tests). Phase 3 structural layer implemented (children, ancestry with observed/inferred provenance, bounded subtrees, stats); its evaluation gate — graph retrieval versus path-only search on a versioned task suite — has not been run. Phases 4–8 not started. See `README.md` and `reports/2026-10-23_filesystem_baseline.md`.
+**Status (2026-10-23):** Phase 0 complete. Phase 1 complete. Phase 2 complete on Windows (metadata index, reconciliation, search, tests). Phase 3 structural layer implemented and evaluated on 5 development plus 10 held-out synthetic seeds (`graph-retrieval-v2`, 525 task instances). Path-only search scored 64.4% overall and 64.9% on held-out seeds; both graph-assisted retrieval and a non-graph path-derived baseline scored 100% with identical evidence. The gate is met for structural access, but not for a graph-specific information advantage; full evidence and limitations are in `reports/graph_retrieval_evaluation_v2.md`. Phase 4 boundary, test backend, synthetic model-task definitions, and candidate research are complete; no runtime or model weights have been installed. See `README.md`, `reports/2026-10-23_filesystem_baseline.md`, and `reports/2026-10-23_local_model_selection.md`.
 
 Use the prompts in `prompts/` one at a time. The order matters: deterministic correctness first, model sophistication later. Estimated order is more reliable than calendar dates; do not rush through failed gates.
 
@@ -24,15 +24,19 @@ Use the prompts in `prompts/` one at a time. The order matters: deterministic co
 
 ## Phase 3 — Graph-aware retrieval
 
-**Deliverable:** query API over roots, parent-child relationships, path ancestry, and later evidence-backed source/project relationships. Add a small test graph and search evaluation.
+**Deliverable:** query API over roots, parent-child relationships, path ancestry, evidence labels, a frozen multi-seed evaluation, and a non-graph path-derived control.
 
 **Gate:** graph queries have explicit ground truth and improve a defined metric over path search alone, or remain a simple structure without claims of improvement.
+
+**Current evidence:** graph-assisted retrieval beats ordinary path-only search on structural categories, but ties the path-derived control on every task in the current suite. Any later claim that the graph adds unique retrieval information requires new evidence.
 
 ## Phase 4 — Local model adapter
 
 **Deliverable:** optional adapter interface, model identity/config, timeouts, cancellation, structured output parsing, and resource logs. Select runtime/model only after inspecting GPU VRAM and testing a small model safely.
 
 **Gate:** deterministic features still run without a model; no model weights download without user approval; model errors/timeouts degrade gracefully.
+
+**Current evidence:** `arceus_core.inference` implements the typed boundary and offline enforcement; the deterministic fake backend covers success and failure paths in tests. The candidate is Ollama plus Qwen2.5 3B Instruct in Q4_K_M, with llama.cpp plus Qwen2.5 1.5B as the fallback. Neither has been installed or run, so neither is a verified implementation. Next gate: obtain user approval, install a runtime, validate the first small model offline, then run `model-reasoning-v1` with a real adapter.
 
 ## Phase 5 — Bounded agent loop
 

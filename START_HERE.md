@@ -1,6 +1,6 @@
 # START HERE — Project ARCEUS
 
-**Implementation status (2026-10-23):** the first milestone (metadata-only filesystem index, conservative reconciliation, search) and the structural graph query layer are implemented and tested on Windows 11. See `README.md` for verified commands and limitations, and `reports/2026-10-23_filesystem_baseline.md` for measurements. The steps below remain the intended human workflow for the later phases.
+**Implementation status (2026-10-23):** the first milestone (metadata-only filesystem index, conservative reconciliation, search) and the structural graph query layer are implemented and tested on Windows 11. Phase 3.1 evaluated three systems on 5 development plus 10 held-out synthetic seeds (525 task instances): path-only scored 338/525 (64.4%), while both graph-assisted and a non-graph path-derived baseline scored 525/525 with identical evidence. The graph adds real structural capability over search, but the experiment found no graph-specific information advantage over string reconstruction from the same indexed paths. Phase 4 now has an optional typed local-inference boundary, a loopback-only Ollama adapter, and a read-only cognitive controller v0 (`arceus_core.controller`: five permitted read-only actions, strict proposal validation, deterministic fallback); the frozen `controller-action-v0` benchmark scores the deterministic arm 12/12 with zero unsafe proposals, while `qwen3.5:4b` completed `model-reasoning-v0` at 1/12 against a 2/12 deterministic baseline, so v0 is effectively deterministic with optional model decoration (only 1/12 benchmark proposals were model-generated). See `README.md` for verified commands and limitations, `reports/2026-10-23_filesystem_baseline.md` for index measurements, `reports/graph_retrieval_evaluation_v2.md` for the experiment and its limits, `reports/2026-10-23_local_model_selection.md` for the model/runtime choice, `reports/2026-10-23_qwen_validation_report.md` for the real-model validation, and `reports/controller-action-v0_*.json` for controller benchmark artifacts. The steps below remain the intended human workflow for later phases.
 
 This is the master guide. Follow the phases in order. **Do not start by training a model or building a desktop UI.** The first goal is a useful, testable local tool that knows where files are without copying their contents.
 
@@ -124,7 +124,7 @@ If `.git` does not exist, initialize it after the audit with `git init -b main`.
 Use `IMPLEMENTATION_ROADMAP.md` and give your coding agent exactly one prompt at a time, in this order:
 
 1. `prompts/03_graph_search.md`
-2. `prompts/04_local_model_adapter.md`
+2. `prompts/04_local_model_adapter.md` — interface and candidate selection complete; runtime/model approval pending.
 3. `prompts/05_bounded_agent_loop.md`
 4. `prompts/06_memory_skills.md`
 5. `prompts/07_benchmark_and_BCR.md`

@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "baseline_success": 2,
+  "model_success": 1,
+  "smoke": {
+    "backend_id": "ollama",
+    "model_id": "qwen3.5:4b",
+    "parsed": {
+      "notes": "Synthetic smoke check for ARCEUS LocalInference.",
+      "status": "ok",
+      "value": 7
+    },
+    "wall_seconds": 14.484157,
+    "input_chars": 197,
+    "output_chars": 84,
+    "passed": true
+  }
+}

@@ -42,3 +42,39 @@ class PathResolutionError(ArceusError):
 
 class QueryError(ArceusError):
     """A search or graph query is empty or outside supported limits."""
+
+
+class InferenceError(ArceusError):
+    """Base class for expected, user-facing local-inference failures."""
+
+
+class InferenceUnavailableError(InferenceError):
+    """The requested local backend is unavailable or outside the offline policy."""
+
+
+class InferenceTimeoutError(InferenceError):
+    """A local inference request exceeded its configured timeout."""
+
+
+class InferenceCancelledError(InferenceError):
+    """A local inference request was cancelled before completion."""
+
+
+class InferenceInputError(InferenceError):
+    """A request violates inference input or resource limits."""
+
+
+class InferenceOutputError(InferenceError):
+    """A backend returned malformed output or failed the response contract."""
+
+
+class InferenceBackendError(InferenceError):
+    """A backend raised an unexpected error while serving a request."""
+
+
+class ControllerError(ArceusError):
+    """Base class for cognitive-controller failures."""
+
+
+class ControllerValidationError(ControllerError):
+    """A proposed action failed schema or permission validation."""

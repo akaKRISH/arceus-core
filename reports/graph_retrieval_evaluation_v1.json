@@ -1,0 +1,2951 @@
+{
+  "experiment": {
+    "id": "ARCEUS-GRAPH-RETRIEVAL-001",
+    "benchmark_version": "graph-retrieval-v1",
+    "fixture_version": "synthetic-fs-v1",
+    "generated_at": "2026-10-23T09:04:35+00:00",
+    "seed": 20261023,
+    "repeats": 5,
+    "task_count": 35,
+    "search_limit": 200,
+    "systems": [
+      "path_only",
+      "graph_assisted"
+    ],
+    "criteria": {
+      "success": "returned target set equals expected target set",
+      "top1": "first returned target equals the single expected target",
+      "evidence": "parent-child or status labels match expected labels"
+    }
+  },
+  "environment": {
+    "platform": "Windows-11-10.0.26300-SP0",
+    "python": "3.13.15",
+    "machine": "AMD64",
+    "cpu_count": 12,
+    "arceus_version": "0.1.0"
+  },
+  "fixture": {
+    "present_files": 146,
+    "directories": 28,
+    "filler_files": 120,
+    "missing_after_scan": [
+      "docs/obsolete-draft.txt",
+      "projects/arceus/src/removed.py"
+    ]
+  },
+  "index": {
+    "present_entries": 174,
+    "missing_entries": 2,
+    "db_bytes": 172032,
+    "first_scan_seconds": 0.0103,
+    "post_mutation_scan_seconds": 0.0099
+  },
+  "aggregates": {
+    "path_only": {
+      "task_count": 35,
+      "unique_task_count": 35,
+      "success": {
+        "count": 23,
+        "rate": 0.6571
+      },
+      "top1": {
+        "task_count": 12,
+        "correct": 11,
+        "accuracy": 0.9167
+      },
+      "target_precision_macro": 0.7847,
+      "target_recall_macro": 0.9062,
+      "target_f1_macro": 0.8204,
+      "evidence_precision_macro": 0.5312,
+      "evidence_recall_macro": 0.5312,
+      "evidence_f1_macro": 0.5312,
+      "no_result": {
+        "task_count": 3,
+        "false_positives": 0,
+        "false_positive_rate": 0.0
+      },
+      "latency_ms": {
+        "sample_count": 175,
+        "median": 0.238,
+        "p95": 0.355
+      },
+      "deterministic": true
+    },
+    "graph_assisted": {
+      "task_count": 35,
+      "unique_task_count": 35,
+      "success": {
+        "count": 35,
+        "rate": 1.0
+      },
+      "top1": {
+        "task_count": 12,
+        "correct": 12,
+        "accuracy": 1.0
+      },
+      "target_precision_macro": 1.0,
+      "target_recall_macro": 1.0,
+      "target_f1_macro": 1.0,
+      "evidence_precision_macro": 1.0,
+      "evidence_recall_macro": 1.0,
+      "evidence_f1_macro": 1.0,
+      "no_result": {
+        "task_count": 3,
+        "false_positives": 0,
+        "false_positive_rate": 0.0
+      },
+      "latency_ms": {
+        "sample_count": 175,
+        "median": 0.127,
+        "p95": 0.287
+      },
+      "deterministic": true
+    }
+  },
+  "categories": {
+    "exact_name": {
+      "path_only": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 4,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.219,
+          "p95": 0.301
+        },
+        "deterministic": true
+      },
+      "graph_assisted": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 4,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.232,
+          "p95": 0.308
+        },
+        "deterministic": true
+      }
+    },
+    "partial_name": {
+      "path_only": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 4,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.254,
+          "p95": 0.28
+        },
+        "deterministic": true
+      },
+      "graph_assisted": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 4,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.255,
+          "p95": 0.483
+        },
+        "deterministic": true
+      }
+    },
+    "ambiguous_name": {
+      "path_only": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 4,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 0,
+          "correct": 0,
+          "accuracy": null
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.239,
+          "p95": 0.252
+        },
+        "deterministic": true
+      },
+      "graph_assisted": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 4,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 0,
+          "correct": 0,
+          "accuracy": null
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.238,
+          "p95": 0.262
+        },
+        "deterministic": true
+      }
+    },
+    "children": {
+      "path_only": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 0,
+          "rate": 0.0
+        },
+        "top1": {
+          "task_count": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "target_precision_macro": 0.4732,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 0.6101,
+        "evidence_precision_macro": 0.0,
+        "evidence_recall_macro": 0.0,
+        "evidence_f1_macro": 0.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.31,
+          "p95": 0.472
+        },
+        "deterministic": true
+      },
+      "graph_assisted": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 4,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.091,
+          "p95": 0.115
+        },
+        "deterministic": true
+      }
+    },
+    "subtree": {
+      "path_only": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 0,
+          "rate": 0.0
+        },
+        "top1": {
+          "task_count": 0,
+          "correct": 0,
+          "accuracy": null
+        },
+        "target_precision_macro": 0.6374,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 0.753,
+        "evidence_precision_macro": 0.0,
+        "evidence_recall_macro": 0.0,
+        "evidence_f1_macro": 0.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.332,
+          "p95": 0.355
+        },
+        "deterministic": true
+      },
+      "graph_assisted": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 4,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 0,
+          "correct": 0,
+          "accuracy": null
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.114,
+          "p95": 0.191
+        },
+        "deterministic": true
+      }
+    },
+    "ancestors": {
+      "path_only": {
+        "task_count": 3,
+        "unique_task_count": 3,
+        "success": {
+          "count": 0,
+          "rate": 0.0
+        },
+        "top1": {
+          "task_count": 0,
+          "correct": 0,
+          "accuracy": null
+        },
+        "target_precision_macro": 0.0,
+        "target_recall_macro": 0.0,
+        "target_f1_macro": 0.0,
+        "evidence_precision_macro": 0.0,
+        "evidence_recall_macro": 0.0,
+        "evidence_f1_macro": 0.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 15,
+          "median": 0.231,
+          "p95": 0.278
+        },
+        "deterministic": true
+      },
+      "graph_assisted": {
+        "task_count": 3,
+        "unique_task_count": 3,
+        "success": {
+          "count": 3,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 0,
+          "correct": 0,
+          "accuracy": null
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 15,
+          "median": 0.12,
+          "p95": 0.136
+        },
+        "deterministic": true
+      }
+    },
+    "extension_in_directory": {
+      "path_only": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 3,
+          "rate": 0.75
+        },
+        "top1": {
+          "task_count": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "target_precision_macro": 0.9167,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 0.95,
+        "evidence_precision_macro": 0.0,
+        "evidence_recall_macro": 0.0,
+        "evidence_f1_macro": 0.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.214,
+          "p95": 0.236
+        },
+        "deterministic": true
+      },
+      "graph_assisted": {
+        "task_count": 4,
+        "unique_task_count": 4,
+        "success": {
+          "count": 4,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 20,
+          "median": 0.104,
+          "p95": 0.127
+        },
+        "deterministic": true
+      }
+    },
+    "nested_path": {
+      "path_only": {
+        "task_count": 3,
+        "unique_task_count": 3,
+        "success": {
+          "count": 3,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 15,
+          "median": 0.236,
+          "p95": 0.274
+        },
+        "deterministic": true
+      },
+      "graph_assisted": {
+        "task_count": 3,
+        "unique_task_count": 3,
+        "success": {
+          "count": 3,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 15,
+          "median": 0.066,
+          "p95": 0.076
+        },
+        "deterministic": true
+      }
+    },
+    "no_result": {
+      "path_only": {
+        "task_count": 3,
+        "unique_task_count": 3,
+        "success": {
+          "count": 3,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 0,
+          "correct": 0,
+          "accuracy": null
+        },
+        "target_precision_macro": null,
+        "target_recall_macro": null,
+        "target_f1_macro": null,
+        "evidence_precision_macro": null,
+        "evidence_recall_macro": null,
+        "evidence_f1_macro": null,
+        "no_result": {
+          "task_count": 3,
+          "false_positives": 0,
+          "false_positive_rate": 0.0
+        },
+        "latency_ms": {
+          "sample_count": 15,
+          "median": 0.188,
+          "p95": 0.21
+        },
+        "deterministic": true
+      },
+      "graph_assisted": {
+        "task_count": 3,
+        "unique_task_count": 3,
+        "success": {
+          "count": 3,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 0,
+          "correct": 0,
+          "accuracy": null
+        },
+        "target_precision_macro": null,
+        "target_recall_macro": null,
+        "target_f1_macro": null,
+        "evidence_precision_macro": null,
+        "evidence_recall_macro": null,
+        "evidence_f1_macro": null,
+        "no_result": {
+          "task_count": 3,
+          "false_positives": 0,
+          "false_positive_rate": 0.0
+        },
+        "latency_ms": {
+          "sample_count": 15,
+          "median": 0.185,
+          "p95": 0.226
+        },
+        "deterministic": true
+      }
+    },
+    "missing_entry": {
+      "path_only": {
+        "task_count": 2,
+        "unique_task_count": 2,
+        "success": {
+          "count": 2,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 10,
+          "median": 0.221,
+          "p95": 0.244
+        },
+        "deterministic": true
+      },
+      "graph_assisted": {
+        "task_count": 2,
+        "unique_task_count": 2,
+        "success": {
+          "count": 2,
+          "rate": 1.0
+        },
+        "top1": {
+          "task_count": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "target_precision_macro": 1.0,
+        "target_recall_macro": 1.0,
+        "target_f1_macro": 1.0,
+        "evidence_precision_macro": 1.0,
+        "evidence_recall_macro": 1.0,
+        "evidence_f1_macro": 1.0,
+        "no_result": {
+          "task_count": 0,
+          "false_positives": 0,
+          "false_positive_rate": null
+        },
+        "latency_ms": {
+          "sample_count": 10,
+          "median": 0.068,
+          "p95": 0.081
+        },
+        "deterministic": true
+      }
+    }
+  },
+  "tasks": [
+    {
+      "id": "exact-01-needle",
+      "category": "exact_name",
+      "kind": "search",
+      "baseline_text": "needle-aurora.dat",
+      "params": {
+        "query": "needle-aurora.dat"
+      },
+      "expected_targets": [
+        "unique/needle-aurora.dat"
+      ],
+      "expected_evidence": [
+        "indexed:unique/needle-aurora.dat"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "unique/needle-aurora.dat"
+          ],
+          "evidence": [
+            "indexed:unique/needle-aurora.dat"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2908,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "unique/needle-aurora.dat"
+          ],
+          "evidence": [
+            "indexed:unique/needle-aurora.dat"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.3039,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "exact-02-singleton",
+      "category": "exact_name",
+      "kind": "search",
+      "baseline_text": "singleton.log",
+      "params": {
+        "query": "singleton.log"
+      },
+      "expected_targets": [
+        "only-one/singleton.log"
+      ],
+      "expected_evidence": [
+        "indexed:only-one/singleton.log"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "only-one/singleton.log"
+          ],
+          "evidence": [
+            "indexed:only-one/singleton.log"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2185,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "only-one/singleton.log"
+          ],
+          "evidence": [
+            "indexed:only-one/singleton.log"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2054,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "exact-03-budget",
+      "category": "exact_name",
+      "kind": "search",
+      "baseline_text": "budget-2026.xlsx",
+      "params": {
+        "query": "budget-2026.xlsx"
+      },
+      "expected_targets": [
+        "docs/budget-2026.xlsx"
+      ],
+      "expected_evidence": [
+        "indexed:docs/budget-2026.xlsx"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "docs/budget-2026.xlsx"
+          ],
+          "evidence": [
+            "indexed:docs/budget-2026.xlsx"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2157,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "docs/budget-2026.xlsx"
+          ],
+          "evidence": [
+            "indexed:docs/budget-2026.xlsx"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2301,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "exact-04-test",
+      "category": "exact_name",
+      "kind": "search",
+      "baseline_text": "test_main.py",
+      "params": {
+        "query": "test_main.py"
+      },
+      "expected_targets": [
+        "projects/arceus/tests/test_main.py"
+      ],
+      "expected_evidence": [
+        "indexed:projects/arceus/tests/test_main.py"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "projects/arceus/tests/test_main.py"
+          ],
+          "evidence": [
+            "indexed:projects/arceus/tests/test_main.py"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2094,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "projects/arceus/tests/test_main.py"
+          ],
+          "evidence": [
+            "indexed:projects/arceus/tests/test_main.py"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2329,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "partial-01-photo",
+      "category": "partial_name",
+      "kind": "search",
+      "baseline_text": "photo-000",
+      "params": {
+        "query": "photo-000"
+      },
+      "expected_targets": [
+        "photos/2026/trip/photo-0001.jpg",
+        "photos/2026/trip/photo-0002.jpg",
+        "photos/2026/trip/photo-0003.jpg"
+      ],
+      "expected_evidence": [
+        "indexed:photos/2026/trip/photo-0001.jpg",
+        "indexed:photos/2026/trip/photo-0002.jpg",
+        "indexed:photos/2026/trip/photo-0003.jpg"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "photos/2026/trip/photo-0001.jpg",
+            "photos/2026/trip/photo-0002.jpg",
+            "photos/2026/trip/photo-0003.jpg"
+          ],
+          "evidence": [
+            "indexed:photos/2026/trip/photo-0001.jpg",
+            "indexed:photos/2026/trip/photo-0002.jpg",
+            "indexed:photos/2026/trip/photo-0003.jpg"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2514,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "photos/2026/trip/photo-0001.jpg",
+            "photos/2026/trip/photo-0002.jpg",
+            "photos/2026/trip/photo-0003.jpg"
+          ],
+          "evidence": [
+            "indexed:photos/2026/trip/photo-0001.jpg",
+            "indexed:photos/2026/trip/photo-0002.jpg",
+            "indexed:photos/2026/trip/photo-0003.jpg"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.4187,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "partial-02-util",
+      "category": "partial_name",
+      "kind": "search",
+      "baseline_text": "util",
+      "params": {
+        "query": "util"
+      },
+      "expected_targets": [
+        "projects/arceus/src/util.py"
+      ],
+      "expected_evidence": [
+        "indexed:projects/arceus/src/util.py"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "projects/arceus/src/util.py"
+          ],
+          "evidence": [
+            "indexed:projects/arceus/src/util.py"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2493,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "projects/arceus/src/util.py"
+          ],
+          "evidence": [
+            "indexed:projects/arceus/src/util.py"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2263,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "partial-03-notes",
+      "category": "partial_name",
+      "kind": "search",
+      "baseline_text": "notes",
+      "params": {
+        "query": "notes"
+      },
+      "expected_targets": [
+        "docs/notes.md",
+        "mixed/notes.md",
+        "photos/2026/trip/notes.txt",
+        "projects/other/notes.md"
+      ],
+      "expected_evidence": [
+        "indexed:docs/notes.md",
+        "indexed:mixed/notes.md",
+        "indexed:photos/2026/trip/notes.txt",
+        "indexed:projects/other/notes.md"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "docs/notes.md",
+            "mixed/notes.md",
+            "projects/other/notes.md",
+            "photos/2026/trip/notes.txt"
+          ],
+          "evidence": [
+            "indexed:docs/notes.md",
+            "indexed:mixed/notes.md",
+            "indexed:photos/2026/trip/notes.txt",
+            "indexed:projects/other/notes.md"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2636,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "docs/notes.md",
+            "mixed/notes.md",
+            "projects/other/notes.md",
+            "photos/2026/trip/notes.txt"
+          ],
+          "evidence": [
+            "indexed:docs/notes.md",
+            "indexed:mixed/notes.md",
+            "indexed:photos/2026/trip/notes.txt",
+            "indexed:projects/other/notes.md"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2712,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "partial-04-readme",
+      "category": "partial_name",
+      "kind": "search",
+      "baseline_text": "readme",
+      "params": {
+        "query": "readme"
+      },
+      "expected_targets": [
+        "mixed/readme.md",
+        "projects/arceus/README.md",
+        "projects/other/README.md"
+      ],
+      "expected_evidence": [
+        "indexed:mixed/readme.md",
+        "indexed:projects/arceus/README.md",
+        "indexed:projects/other/README.md"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "mixed/readme.md",
+            "projects/arceus/README.md",
+            "projects/other/README.md"
+          ],
+          "evidence": [
+            "indexed:mixed/readme.md",
+            "indexed:projects/arceus/README.md",
+            "indexed:projects/other/README.md"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2441,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "mixed/readme.md",
+            "projects/arceus/README.md",
+            "projects/other/README.md"
+          ],
+          "evidence": [
+            "indexed:mixed/readme.md",
+            "indexed:projects/arceus/README.md",
+            "indexed:projects/other/README.md"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2436,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "ambiguous-01-report",
+      "category": "ambiguous_name",
+      "kind": "search",
+      "baseline_text": "report.txt",
+      "params": {
+        "query": "report.txt"
+      },
+      "expected_targets": [
+        "docs/archive/2025/report.txt",
+        "docs/archive/report.txt",
+        "docs/report.txt"
+      ],
+      "expected_evidence": [
+        "indexed:docs/archive/2025/report.txt",
+        "indexed:docs/archive/report.txt",
+        "indexed:docs/report.txt"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "docs/archive/2025/report.txt",
+            "docs/archive/report.txt",
+            "docs/report.txt"
+          ],
+          "evidence": [
+            "indexed:docs/archive/2025/report.txt",
+            "indexed:docs/archive/report.txt",
+            "indexed:docs/report.txt"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2406,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "docs/archive/2025/report.txt",
+            "docs/archive/report.txt",
+            "docs/report.txt"
+          ],
+          "evidence": [
+            "indexed:docs/archive/2025/report.txt",
+            "indexed:docs/archive/report.txt",
+            "indexed:docs/report.txt"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2387,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "ambiguous-02-notes-md",
+      "category": "ambiguous_name",
+      "kind": "search",
+      "baseline_text": "notes.md",
+      "params": {
+        "query": "notes.md"
+      },
+      "expected_targets": [
+        "docs/notes.md",
+        "mixed/notes.md",
+        "projects/other/notes.md"
+      ],
+      "expected_evidence": [
+        "indexed:docs/notes.md",
+        "indexed:mixed/notes.md",
+        "indexed:projects/other/notes.md"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "docs/notes.md",
+            "mixed/notes.md",
+            "projects/other/notes.md"
+          ],
+          "evidence": [
+            "indexed:docs/notes.md",
+            "indexed:mixed/notes.md",
+            "indexed:projects/other/notes.md"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2398,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "docs/notes.md",
+            "mixed/notes.md",
+            "projects/other/notes.md"
+          ],
+          "evidence": [
+            "indexed:docs/notes.md",
+            "indexed:mixed/notes.md",
+            "indexed:projects/other/notes.md"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2344,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "ambiguous-03-readme-md",
+      "category": "ambiguous_name",
+      "kind": "search",
+      "baseline_text": "README.md",
+      "params": {
+        "query": "README.md"
+      },
+      "expected_targets": [
+        "mixed/readme.md",
+        "projects/arceus/README.md",
+        "projects/other/README.md"
+      ],
+      "expected_evidence": [
+        "indexed:mixed/readme.md",
+        "indexed:projects/arceus/README.md",
+        "indexed:projects/other/README.md"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "mixed/readme.md",
+            "projects/arceus/README.md",
+            "projects/other/README.md"
+          ],
+          "evidence": [
+            "indexed:mixed/readme.md",
+            "indexed:projects/arceus/README.md",
+            "indexed:projects/other/README.md"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2376,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "mixed/readme.md",
+            "projects/arceus/README.md",
+            "projects/other/README.md"
+          ],
+          "evidence": [
+            "indexed:mixed/readme.md",
+            "indexed:projects/arceus/README.md",
+            "indexed:projects/other/README.md"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2409,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "ambiguous-04-settings",
+      "category": "ambiguous_name",
+      "kind": "search",
+      "baseline_text": "settings.json",
+      "params": {
+        "query": "settings.json"
+      },
+      "expected_targets": [
+        "projects/arceus/settings.json",
+        "projects/other/settings.json"
+      ],
+      "expected_evidence": [
+        "indexed:projects/arceus/settings.json",
+        "indexed:projects/other/settings.json"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "projects/arceus/settings.json",
+            "projects/other/settings.json"
+          ],
+          "evidence": [
+            "indexed:projects/arceus/settings.json",
+            "indexed:projects/other/settings.json"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2263,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "projects/arceus/settings.json",
+            "projects/other/settings.json"
+          ],
+          "evidence": [
+            "indexed:projects/arceus/settings.json",
+            "indexed:projects/other/settings.json"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2203,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "children-01-docs",
+      "category": "children",
+      "kind": "children",
+      "baseline_text": "docs",
+      "params": {
+        "directory": "docs"
+      },
+      "expected_targets": [
+        "docs/archive",
+        "docs/budget-2026.xlsx",
+        "docs/notes.md",
+        "docs/report.txt"
+      ],
+      "expected_evidence": [
+        "contains:docs|docs/archive",
+        "contains:docs|docs/budget-2026.xlsx",
+        "contains:docs|docs/notes.md",
+        "contains:docs|docs/report.txt"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "docs",
+            "docs/archive/2025",
+            "docs/archive",
+            "docs/budget-2026.xlsx",
+            "docs/notes.md",
+            "docs/archive/2025/report.txt",
+            "docs/archive/report.txt",
+            "docs/report.txt"
+          ],
+          "evidence": [
+            "indexed:docs",
+            "indexed:docs/archive",
+            "indexed:docs/archive/2025",
+            "indexed:docs/archive/2025/report.txt",
+            "indexed:docs/archive/report.txt",
+            "indexed:docs/budget-2026.xlsx",
+            "indexed:docs/notes.md",
+            "indexed:docs/report.txt"
+          ],
+          "success": false,
+          "top1": null,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.3413,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "docs/archive",
+            "docs/budget-2026.xlsx",
+            "docs/notes.md",
+            "docs/report.txt"
+          ],
+          "evidence": [
+            "contains:docs|docs/archive",
+            "contains:docs|docs/budget-2026.xlsx",
+            "contains:docs|docs/notes.md",
+            "contains:docs|docs/report.txt"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.1053,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "children-02-src",
+      "category": "children",
+      "kind": "children",
+      "baseline_text": "src",
+      "params": {
+        "directory": "projects/arceus/src"
+      },
+      "expected_targets": [
+        "projects/arceus/src/helpers.py",
+        "projects/arceus/src/main.py",
+        "projects/arceus/src/util.py"
+      ],
+      "expected_evidence": [
+        "contains:projects/arceus/src|projects/arceus/src/helpers.py",
+        "contains:projects/arceus/src|projects/arceus/src/main.py",
+        "contains:projects/arceus/src|projects/arceus/src/util.py"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "projects/arceus/src",
+            "projects/arceus/src/helpers.py",
+            "projects/arceus/src/main.py",
+            "projects/arceus/src/util.py"
+          ],
+          "evidence": [
+            "indexed:projects/arceus/src",
+            "indexed:projects/arceus/src/helpers.py",
+            "indexed:projects/arceus/src/main.py",
+            "indexed:projects/arceus/src/util.py"
+          ],
+          "success": false,
+          "top1": null,
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.2673,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "projects/arceus/src/helpers.py",
+            "projects/arceus/src/main.py",
+            "projects/arceus/src/util.py"
+          ],
+          "evidence": [
+            "contains:projects/arceus/src|projects/arceus/src/helpers.py",
+            "contains:projects/arceus/src|projects/arceus/src/main.py",
+            "contains:projects/arceus/src|projects/arceus/src/util.py"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.0914,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "children-03-empty",
+      "category": "children",
+      "kind": "children",
+      "baseline_text": "empty-dir",
+      "params": {
+        "directory": "empty-dir"
+      },
+      "expected_targets": [
+        "empty-dir/nested-empty"
+      ],
+      "expected_evidence": [
+        "contains:empty-dir|empty-dir/nested-empty"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "empty-dir",
+            "empty-dir/nested-empty"
+          ],
+          "evidence": [
+            "indexed:empty-dir",
+            "indexed:empty-dir/nested-empty"
+          ],
+          "success": false,
+          "top1": false,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.2351,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "empty-dir/nested-empty"
+          ],
+          "evidence": [
+            "contains:empty-dir|empty-dir/nested-empty"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.068,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "children-04-projects",
+      "category": "children",
+      "kind": "children",
+      "baseline_text": "projects",
+      "params": {
+        "directory": "projects"
+      },
+      "expected_targets": [
+        "projects/arceus",
+        "projects/other"
+      ],
+      "expected_evidence": [
+        "contains:projects|projects/arceus",
+        "contains:projects|projects/other"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "projects",
+            "projects/arceus",
+            "projects/arceus/src/helpers.py",
+            "projects/arceus/src/main.py",
+            "projects/other/notes.md",
+            "projects/other",
+            "projects/arceus/README.md",
+            "projects/other/README.md",
+            "projects/arceus/settings.json",
+            "projects/other/settings.json",
+            "projects/arceus/src",
+            "projects/arceus/tests/test_main.py",
+            "projects/arceus/tests",
+            "projects/arceus/src/util.py"
+          ],
+          "evidence": [
+            "indexed:projects",
+            "indexed:projects/arceus",
+            "indexed:projects/arceus/README.md",
+            "indexed:projects/arceus/settings.json",
+            "indexed:projects/arceus/src",
+            "indexed:projects/arceus/src/helpers.py",
+            "indexed:projects/arceus/src/main.py",
+            "indexed:projects/arceus/src/util.py",
+            "indexed:projects/arceus/tests",
+            "indexed:projects/arceus/tests/test_main.py",
+            "indexed:projects/other",
+            "indexed:projects/other/README.md",
+            "indexed:projects/other/notes.md",
+            "indexed:projects/other/settings.json"
+          ],
+          "success": false,
+          "top1": null,
+          "precision": 0.14285714285714285,
+          "recall": 1.0,
+          "f1": 0.25,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.4615,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "projects/arceus",
+            "projects/other"
+          ],
+          "evidence": [
+            "contains:projects|projects/arceus",
+            "contains:projects|projects/other"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.0801,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "subtree-01-archive",
+      "category": "subtree",
+      "kind": "subtree",
+      "baseline_text": "archive",
+      "params": {
+        "directory": "docs/archive",
+        "depth": 2
+      },
+      "expected_targets": [
+        "docs/archive/2025",
+        "docs/archive/2025/report.txt",
+        "docs/archive/report.txt"
+      ],
+      "expected_evidence": [
+        "contains:docs/archive/2025|docs/archive/2025/report.txt",
+        "contains:docs/archive|docs/archive/2025",
+        "contains:docs/archive|docs/archive/report.txt"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "docs/archive",
+            "docs/archive/2025",
+            "docs/archive/2025/report.txt",
+            "docs/archive/report.txt"
+          ],
+          "evidence": [
+            "indexed:docs/archive",
+            "indexed:docs/archive/2025",
+            "indexed:docs/archive/2025/report.txt",
+            "indexed:docs/archive/report.txt"
+          ],
+          "success": false,
+          "top1": null,
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.2772,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "docs/archive/2025",
+            "docs/archive/2025/report.txt",
+            "docs/archive/report.txt"
+          ],
+          "evidence": [
+            "contains:docs/archive/2025|docs/archive/2025/report.txt",
+            "contains:docs/archive|docs/archive/2025",
+            "contains:docs/archive|docs/archive/report.txt"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.1122,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "subtree-02-arceus",
+      "category": "subtree",
+      "kind": "subtree",
+      "baseline_text": "arceus",
+      "params": {
+        "directory": "projects/arceus",
+        "depth": 2
+      },
+      "expected_targets": [
+        "projects/arceus/README.md",
+        "projects/arceus/settings.json",
+        "projects/arceus/src",
+        "projects/arceus/src/helpers.py",
+        "projects/arceus/src/main.py",
+        "projects/arceus/src/util.py",
+        "projects/arceus/tests",
+        "projects/arceus/tests/test_main.py"
+      ],
+      "expected_evidence": [
+        "contains:projects/arceus/src|projects/arceus/src/helpers.py",
+        "contains:projects/arceus/src|projects/arceus/src/main.py",
+        "contains:projects/arceus/src|projects/arceus/src/util.py",
+        "contains:projects/arceus/tests|projects/arceus/tests/test_main.py",
+        "contains:projects/arceus|projects/arceus/README.md",
+        "contains:projects/arceus|projects/arceus/settings.json",
+        "contains:projects/arceus|projects/arceus/src",
+        "contains:projects/arceus|projects/arceus/tests"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "projects/arceus",
+            "projects/arceus/src/helpers.py",
+            "projects/arceus/src/main.py",
+            "projects/arceus/README.md",
+            "projects/arceus/settings.json",
+            "projects/arceus/src",
+            "projects/arceus/tests/test_main.py",
+            "projects/arceus/tests",
+            "projects/arceus/src/util.py"
+          ],
+          "evidence": [
+            "indexed:projects/arceus",
+            "indexed:projects/arceus/README.md",
+            "indexed:projects/arceus/settings.json",
+            "indexed:projects/arceus/src",
+            "indexed:projects/arceus/src/helpers.py",
+            "indexed:projects/arceus/src/main.py",
+            "indexed:projects/arceus/src/util.py",
+            "indexed:projects/arceus/tests",
+            "indexed:projects/arceus/tests/test_main.py"
+          ],
+          "success": false,
+          "top1": null,
+          "precision": 0.8888888888888888,
+          "recall": 1.0,
+          "f1": 0.9411764705882353,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.3541,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "projects/arceus/README.md",
+            "projects/arceus/settings.json",
+            "projects/arceus/src",
+            "projects/arceus/src/helpers.py",
+            "projects/arceus/src/main.py",
+            "projects/arceus/src/util.py",
+            "projects/arceus/tests",
+            "projects/arceus/tests/test_main.py"
+          ],
+          "evidence": [
+            "contains:projects/arceus/src|projects/arceus/src/helpers.py",
+            "contains:projects/arceus/src|projects/arceus/src/main.py",
+            "contains:projects/arceus/src|projects/arceus/src/util.py",
+            "contains:projects/arceus/tests|projects/arceus/tests/test_main.py",
+            "contains:projects/arceus|projects/arceus/README.md",
+            "contains:projects/arceus|projects/arceus/settings.json",
+            "contains:projects/arceus|projects/arceus/src",
+            "contains:projects/arceus|projects/arceus/tests"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.1804,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "subtree-03-mixed",
+      "category": "subtree",
+      "kind": "subtree",
+      "baseline_text": "mixed",
+      "params": {
+        "directory": "mixed",
+        "depth": 1
+      },
+      "expected_targets": [
+        "mixed/alpha.py",
+        "mixed/beta.py",
+        "mixed/nested",
+        "mixed/notes.md",
+        "mixed/readme.md"
+      ],
+      "expected_evidence": [
+        "contains:mixed|mixed/alpha.py",
+        "contains:mixed|mixed/beta.py",
+        "contains:mixed|mixed/nested",
+        "contains:mixed|mixed/notes.md",
+        "contains:mixed|mixed/readme.md"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "mixed",
+            "mixed/alpha.py",
+            "mixed/beta.py",
+            "mixed/nested/data.txt",
+            "mixed/nested/gamma.py",
+            "mixed/nested",
+            "mixed/notes.md",
+            "mixed/readme.md"
+          ],
+          "evidence": [
+            "indexed:mixed",
+            "indexed:mixed/alpha.py",
+            "indexed:mixed/beta.py",
+            "indexed:mixed/nested",
+            "indexed:mixed/nested/data.txt",
+            "indexed:mixed/nested/gamma.py",
+            "indexed:mixed/notes.md",
+            "indexed:mixed/readme.md"
+          ],
+          "success": false,
+          "top1": null,
+          "precision": 0.625,
+          "recall": 1.0,
+          "f1": 0.7692307692307693,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.3325,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "mixed/alpha.py",
+            "mixed/beta.py",
+            "mixed/nested",
+            "mixed/notes.md",
+            "mixed/readme.md"
+          ],
+          "evidence": [
+            "contains:mixed|mixed/alpha.py",
+            "contains:mixed|mixed/beta.py",
+            "contains:mixed|mixed/nested",
+            "contains:mixed|mixed/notes.md",
+            "contains:mixed|mixed/readme.md"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.115,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "subtree-04-photos",
+      "category": "subtree",
+      "kind": "subtree",
+      "baseline_text": "photos",
+      "params": {
+        "directory": "photos",
+        "depth": 2
+      },
+      "expected_targets": [
+        "photos/2026",
+        "photos/2026/trip"
+      ],
+      "expected_evidence": [
+        "contains:photos/2026|photos/2026/trip",
+        "contains:photos|photos/2026"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "photos",
+            "photos/2026",
+            "photos/2026/trip/notes.txt",
+            "photos/2026/trip/photo-0001.jpg",
+            "photos/2026/trip/photo-0002.jpg",
+            "photos/2026/trip/photo-0003.jpg",
+            "photos/2026/trip"
+          ],
+          "evidence": [
+            "indexed:photos",
+            "indexed:photos/2026",
+            "indexed:photos/2026/trip",
+            "indexed:photos/2026/trip/notes.txt",
+            "indexed:photos/2026/trip/photo-0001.jpg",
+            "indexed:photos/2026/trip/photo-0002.jpg",
+            "indexed:photos/2026/trip/photo-0003.jpg"
+          ],
+          "success": false,
+          "top1": null,
+          "precision": 0.2857142857142857,
+          "recall": 1.0,
+          "f1": 0.4444444444444445,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.3175,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "photos/2026",
+            "photos/2026/trip"
+          ],
+          "evidence": [
+            "contains:photos/2026|photos/2026/trip",
+            "contains:photos|photos/2026"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.0958,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "ancestors-01-main",
+      "category": "ancestors",
+      "kind": "ancestors",
+      "baseline_text": "main.py",
+      "params": {
+        "file": "projects/arceus/src/main.py"
+      },
+      "expected_targets": [
+        "projects",
+        "projects/arceus",
+        "projects/arceus/src"
+      ],
+      "expected_evidence": [
+        "contains:.|projects",
+        "contains:projects/arceus/src|projects/arceus/src/main.py",
+        "contains:projects/arceus|projects/arceus/src",
+        "contains:projects|projects/arceus"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "projects/arceus/src/main.py",
+            "projects/arceus/tests/test_main.py"
+          ],
+          "evidence": [
+            "indexed:projects/arceus/src/main.py",
+            "indexed:projects/arceus/tests/test_main.py"
+          ],
+          "success": false,
+          "top1": null,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.2235,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "projects",
+            "projects/arceus",
+            "projects/arceus/src"
+          ],
+          "evidence": [
+            "contains:.|projects",
+            "contains:projects/arceus/src|projects/arceus/src/main.py",
+            "contains:projects/arceus|projects/arceus/src",
+            "contains:projects|projects/arceus"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.1246,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "ancestors-02-report",
+      "category": "ancestors",
+      "kind": "ancestors",
+      "baseline_text": "report.txt",
+      "params": {
+        "file": "docs/archive/2025/report.txt"
+      },
+      "expected_targets": [
+        "docs",
+        "docs/archive",
+        "docs/archive/2025"
+      ],
+      "expected_evidence": [
+        "contains:.|docs",
+        "contains:docs/archive/2025|docs/archive/2025/report.txt",
+        "contains:docs/archive|docs/archive/2025",
+        "contains:docs|docs/archive"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "docs/archive/2025/report.txt",
+            "docs/archive/report.txt",
+            "docs/report.txt"
+          ],
+          "evidence": [
+            "indexed:docs/archive/2025/report.txt",
+            "indexed:docs/archive/report.txt",
+            "indexed:docs/report.txt"
+          ],
+          "success": false,
+          "top1": null,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.2705,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "docs",
+            "docs/archive",
+            "docs/archive/2025"
+          ],
+          "evidence": [
+            "contains:.|docs",
+            "contains:docs/archive/2025|docs/archive/2025/report.txt",
+            "contains:docs/archive|docs/archive/2025",
+            "contains:docs|docs/archive"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.125,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "ancestors-03-gamma",
+      "category": "ancestors",
+      "kind": "ancestors",
+      "baseline_text": "gamma.py",
+      "params": {
+        "file": "mixed/nested/gamma.py"
+      },
+      "expected_targets": [
+        "mixed",
+        "mixed/nested"
+      ],
+      "expected_evidence": [
+        "contains:.|mixed",
+        "contains:mixed/nested|mixed/nested/gamma.py",
+        "contains:mixed|mixed/nested"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "mixed/nested/gamma.py"
+          ],
+          "evidence": [
+            "indexed:mixed/nested/gamma.py"
+          ],
+          "success": false,
+          "top1": null,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.2141,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "mixed",
+            "mixed/nested"
+          ],
+          "evidence": [
+            "contains:.|mixed",
+            "contains:mixed/nested|mixed/nested/gamma.py",
+            "contains:mixed|mixed/nested"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.0956,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "extension-01-mixed-py",
+      "category": "extension_in_directory",
+      "kind": "extension_in_directory",
+      "baseline_text": "mixed",
+      "params": {
+        "directory": "mixed",
+        "extension": "py"
+      },
+      "expected_targets": [
+        "mixed/alpha.py",
+        "mixed/beta.py"
+      ],
+      "expected_evidence": [
+        "contains:mixed|mixed/alpha.py",
+        "contains:mixed|mixed/beta.py"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "mixed/alpha.py",
+            "mixed/beta.py",
+            "mixed/nested/gamma.py"
+          ],
+          "evidence": [
+            "indexed:mixed/alpha.py",
+            "indexed:mixed/beta.py",
+            "indexed:mixed/nested/gamma.py"
+          ],
+          "success": false,
+          "top1": null,
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.2206,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "mixed/alpha.py",
+            "mixed/beta.py"
+          ],
+          "evidence": [
+            "contains:mixed|mixed/alpha.py",
+            "contains:mixed|mixed/beta.py"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.1136,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "extension-02-arceus-md",
+      "category": "extension_in_directory",
+      "kind": "extension_in_directory",
+      "baseline_text": "arceus",
+      "params": {
+        "directory": "projects/arceus",
+        "extension": "md"
+      },
+      "expected_targets": [
+        "projects/arceus/README.md"
+      ],
+      "expected_evidence": [
+        "contains:projects/arceus|projects/arceus/README.md"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "projects/arceus/README.md"
+          ],
+          "evidence": [
+            "indexed:projects/arceus/README.md"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.1842,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "projects/arceus/README.md"
+          ],
+          "evidence": [
+            "contains:projects/arceus|projects/arceus/README.md"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.1036,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "extension-03-src-py",
+      "category": "extension_in_directory",
+      "kind": "extension_in_directory",
+      "baseline_text": "src",
+      "params": {
+        "directory": "projects/arceus/src",
+        "extension": "py"
+      },
+      "expected_targets": [
+        "projects/arceus/src/helpers.py",
+        "projects/arceus/src/main.py",
+        "projects/arceus/src/util.py"
+      ],
+      "expected_evidence": [
+        "contains:projects/arceus/src|projects/arceus/src/helpers.py",
+        "contains:projects/arceus/src|projects/arceus/src/main.py",
+        "contains:projects/arceus/src|projects/arceus/src/util.py"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "projects/arceus/src/helpers.py",
+            "projects/arceus/src/main.py",
+            "projects/arceus/src/util.py"
+          ],
+          "evidence": [
+            "indexed:projects/arceus/src/helpers.py",
+            "indexed:projects/arceus/src/main.py",
+            "indexed:projects/arceus/src/util.py"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.2159,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "projects/arceus/src/helpers.py",
+            "projects/arceus/src/main.py",
+            "projects/arceus/src/util.py"
+          ],
+          "evidence": [
+            "contains:projects/arceus/src|projects/arceus/src/helpers.py",
+            "contains:projects/arceus/src|projects/arceus/src/main.py",
+            "contains:projects/arceus/src|projects/arceus/src/util.py"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.094,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "extension-04-trip-jpg",
+      "category": "extension_in_directory",
+      "kind": "extension_in_directory",
+      "baseline_text": "trip",
+      "params": {
+        "directory": "photos/2026/trip",
+        "extension": "jpg"
+      },
+      "expected_targets": [
+        "photos/2026/trip/photo-0001.jpg",
+        "photos/2026/trip/photo-0002.jpg",
+        "photos/2026/trip/photo-0003.jpg"
+      ],
+      "expected_evidence": [
+        "contains:photos/2026/trip|photos/2026/trip/photo-0001.jpg",
+        "contains:photos/2026/trip|photos/2026/trip/photo-0002.jpg",
+        "contains:photos/2026/trip|photos/2026/trip/photo-0003.jpg"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "photos/2026/trip/photo-0001.jpg",
+            "photos/2026/trip/photo-0002.jpg",
+            "photos/2026/trip/photo-0003.jpg"
+          ],
+          "evidence": [
+            "indexed:photos/2026/trip/photo-0001.jpg",
+            "indexed:photos/2026/trip/photo-0002.jpg",
+            "indexed:photos/2026/trip/photo-0003.jpg"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 0.0,
+          "evidence_recall": 0.0,
+          "evidence_f1": 0.0,
+          "latency_ms_median": 0.216,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "photos/2026/trip/photo-0001.jpg",
+            "photos/2026/trip/photo-0002.jpg",
+            "photos/2026/trip/photo-0003.jpg"
+          ],
+          "evidence": [
+            "contains:photos/2026/trip|photos/2026/trip/photo-0001.jpg",
+            "contains:photos/2026/trip|photos/2026/trip/photo-0002.jpg",
+            "contains:photos/2026/trip|photos/2026/trip/photo-0003.jpg"
+          ],
+          "success": true,
+          "top1": null,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.1047,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "nested-01-data",
+      "category": "nested_path",
+      "kind": "nested_path",
+      "baseline_text": "mixed/nested/data.txt",
+      "params": {
+        "path": "mixed/nested/data.txt"
+      },
+      "expected_targets": [
+        "mixed/nested/data.txt"
+      ],
+      "expected_evidence": [
+        "indexed:mixed/nested/data.txt"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "mixed/nested/data.txt"
+          ],
+          "evidence": [
+            "indexed:mixed/nested/data.txt"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2211,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "mixed/nested/data.txt"
+          ],
+          "evidence": [
+            "indexed:mixed/nested/data.txt"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.0647,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "nested-02-needle",
+      "category": "nested_path",
+      "kind": "nested_path",
+      "baseline_text": "unique/needle-aurora.dat",
+      "params": {
+        "path": "unique/needle-aurora.dat"
+      },
+      "expected_targets": [
+        "unique/needle-aurora.dat"
+      ],
+      "expected_evidence": [
+        "indexed:unique/needle-aurora.dat"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "unique/needle-aurora.dat"
+          ],
+          "evidence": [
+            "indexed:unique/needle-aurora.dat"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2202,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "unique/needle-aurora.dat"
+          ],
+          "evidence": [
+            "indexed:unique/needle-aurora.dat"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.0697,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "nested-03-report",
+      "category": "nested_path",
+      "kind": "nested_path",
+      "baseline_text": "docs/archive/2025/report.txt",
+      "params": {
+        "path": "docs/archive/2025/report.txt"
+      },
+      "expected_targets": [
+        "docs/archive/2025/report.txt"
+      ],
+      "expected_evidence": [
+        "indexed:docs/archive/2025/report.txt"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "docs/archive/2025/report.txt"
+          ],
+          "evidence": [
+            "indexed:docs/archive/2025/report.txt"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2528,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "docs/archive/2025/report.txt"
+          ],
+          "evidence": [
+            "indexed:docs/archive/2025/report.txt"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.0661,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "noresult-01-gibberish",
+      "category": "no_result",
+      "kind": "no_result",
+      "baseline_text": "zzz-no-such-file-987",
+      "params": {
+        "query": "zzz-no-such-file-987"
+      },
+      "expected_targets": [],
+      "expected_evidence": [],
+      "systems": {
+        "path_only": {
+          "targets": [],
+          "evidence": [],
+          "success": true,
+          "top1": null,
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "evidence_precision": null,
+          "evidence_recall": null,
+          "evidence_f1": null,
+          "latency_ms_median": 0.1881,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [],
+          "evidence": [],
+          "success": true,
+          "top1": null,
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "evidence_precision": null,
+          "evidence_recall": null,
+          "evidence_f1": null,
+          "latency_ms_median": 0.1762,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "noresult-02-token",
+      "category": "no_result",
+      "kind": "no_result",
+      "baseline_text": "definitely-absent-token",
+      "params": {
+        "query": "definitely-absent-token"
+      },
+      "expected_targets": [],
+      "expected_evidence": [],
+      "systems": {
+        "path_only": {
+          "targets": [],
+          "evidence": [],
+          "success": true,
+          "top1": null,
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "evidence_precision": null,
+          "evidence_recall": null,
+          "evidence_f1": null,
+          "latency_ms_median": 0.1884,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [],
+          "evidence": [],
+          "success": true,
+          "top1": null,
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "evidence_precision": null,
+          "evidence_recall": null,
+          "evidence_f1": null,
+          "latency_ms_median": 0.1928,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "noresult-03-extension",
+      "category": "no_result",
+      "kind": "no_result",
+      "baseline_text": "report.docx",
+      "params": {
+        "query": "report.docx"
+      },
+      "expected_targets": [],
+      "expected_evidence": [],
+      "systems": {
+        "path_only": {
+          "targets": [],
+          "evidence": [],
+          "success": true,
+          "top1": null,
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "evidence_precision": null,
+          "evidence_recall": null,
+          "evidence_f1": null,
+          "latency_ms_median": 0.1854,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [],
+          "evidence": [],
+          "success": true,
+          "top1": null,
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "evidence_precision": null,
+          "evidence_recall": null,
+          "evidence_f1": null,
+          "latency_ms_median": 0.1846,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "missing-01-draft",
+      "category": "missing_entry",
+      "kind": "missing",
+      "baseline_text": "obsolete-draft.txt",
+      "params": {
+        "path": "docs/obsolete-draft.txt"
+      },
+      "expected_targets": [
+        "docs/obsolete-draft.txt"
+      ],
+      "expected_evidence": [
+        "missing:docs/obsolete-draft.txt"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "docs/obsolete-draft.txt"
+          ],
+          "evidence": [
+            "missing:docs/obsolete-draft.txt"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2193,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "docs/obsolete-draft.txt"
+          ],
+          "evidence": [
+            "missing:docs/obsolete-draft.txt"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.0651,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "missing-02-removed",
+      "category": "missing_entry",
+      "kind": "missing",
+      "baseline_text": "removed.py",
+      "params": {
+        "path": "projects/arceus/src/removed.py"
+      },
+      "expected_targets": [
+        "projects/arceus/src/removed.py"
+      ],
+      "expected_evidence": [
+        "missing:projects/arceus/src/removed.py"
+      ],
+      "systems": {
+        "path_only": {
+          "targets": [
+            "projects/arceus/src/removed.py"
+          ],
+          "evidence": [
+            "missing:projects/arceus/src/removed.py"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.2214,
+          "deterministic": true,
+          "notes": null
+        },
+        "graph_assisted": {
+          "targets": [
+            "projects/arceus/src/removed.py"
+          ],
+          "evidence": [
+            "missing:projects/arceus/src/removed.py"
+          ],
+          "success": true,
+          "top1": true,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "evidence_precision": 1.0,
+          "evidence_recall": 1.0,
+          "evidence_f1": 1.0,
+          "latency_ms_median": 0.0679,
+          "deterministic": true,
+          "notes": null
+        }
+      }
+    }
+  ]
+}

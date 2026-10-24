@@ -1,0 +1,2011 @@
+{
+  "phase": "6.1",
+  "lifecycle": {
+    "baseline": {
+      "arm": "baseline",
+      "scenario_count": 9,
+      "end_to_end_success": 9,
+      "by_scenario": {
+        "lc-01-removal-similar-remains": {
+          "scenario_id": "lc-01-removal-similar-remains",
+          "mutation": "remove_alpha_keep_similar",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "abstained",
+          "action2": "abstain",
+          "executed2": false,
+          "verification2": "verified",
+          "reuse_decision2": null,
+          "wall_seconds": 0.0014,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": null,
+          "stale_rejection_observed": null,
+          "stale_adoption": null,
+          "memory_stats": null
+        },
+        "lc-02-removal-clean": {
+          "scenario_id": "lc-02-removal-clean",
+          "mutation": "remove_alpha_clean",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "abstained",
+          "action2": "abstain",
+          "executed2": false,
+          "verification2": "verified",
+          "reuse_decision2": null,
+          "wall_seconds": 0.0013,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": null,
+          "stale_rejection_observed": null,
+          "stale_adoption": null,
+          "memory_stats": null
+        },
+        "lc-03-rename-original-ask": {
+          "scenario_id": "lc-03-rename-original-ask",
+          "mutation": "rename_alpha_gamma",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "abstained",
+          "action2": "abstain",
+          "executed2": false,
+          "verification2": "verified",
+          "reuse_decision2": null,
+          "wall_seconds": 0.0012,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": null,
+          "stale_rejection_observed": null,
+          "stale_adoption": null,
+          "memory_stats": null
+        },
+        "lc-04-rename-new-name-ask": {
+          "scenario_id": "lc-04-rename-new-name-ask",
+          "mutation": "rename_alpha_gamma",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "verified",
+          "action2": "search_files",
+          "executed2": true,
+          "verification2": "verified",
+          "reuse_decision2": null,
+          "wall_seconds": 0.0015,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": null,
+          "stale_rejection_observed": null,
+          "stale_adoption": null,
+          "memory_stats": null
+        },
+        "lc-05-same-name-other-directory": {
+          "scenario_id": "lc-05-same-name-other-directory",
+          "mutation": "alpha_to_archive",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "verified",
+          "action2": "search_files",
+          "executed2": true,
+          "verification2": "verified",
+          "reuse_decision2": null,
+          "wall_seconds": 0.0013,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": null,
+          "stale_rejection_observed": null,
+          "stale_adoption": null,
+          "memory_stats": null
+        },
+        "lc-06-unchanged-reask-control": {
+          "scenario_id": "lc-06-unchanged-reask-control",
+          "mutation": "none",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "verified",
+          "action2": "search_files",
+          "executed2": true,
+          "verification2": "verified",
+          "reuse_decision2": null,
+          "wall_seconds": 0.0014,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": null,
+          "stale_rejection_observed": null,
+          "stale_adoption": null,
+          "memory_stats": null
+        },
+        "lc-07-root-marked-missing": {
+          "scenario_id": "lc-07-root-marked-missing",
+          "mutation": "none",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "incomplete",
+          "action2": "search_files",
+          "executed2": true,
+          "verification2": "unverified",
+          "reuse_decision2": null,
+          "wall_seconds": 0.0014,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": null,
+          "stale_rejection_observed": null,
+          "stale_adoption": null,
+          "memory_stats": null
+        },
+        "lc-08-parent-directory-moved": {
+          "scenario_id": "lc-08-parent-directory-moved",
+          "mutation": "docs_to_nested",
+          "task1_status": "verified",
+          "task1_action": "graph_children",
+          "task1_verified": true,
+          "status2": "incomplete",
+          "action2": "graph_children",
+          "executed2": true,
+          "verification2": "incomplete",
+          "reuse_decision2": null,
+          "wall_seconds": 0.0011,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": null,
+          "stale_rejection_observed": null,
+          "stale_adoption": null,
+          "memory_stats": null
+        },
+        "lc-09-parent-directory-moved-new-path": {
+          "scenario_id": "lc-09-parent-directory-moved-new-path",
+          "mutation": "docs_to_nested",
+          "task1_status": "verified",
+          "task1_action": "graph_children",
+          "task1_verified": true,
+          "status2": "verified",
+          "action2": "graph_children",
+          "executed2": true,
+          "verification2": "verified",
+          "reuse_decision2": null,
+          "wall_seconds": 0.0011,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": null,
+          "stale_rejection_observed": null,
+          "stale_adoption": null,
+          "memory_stats": null
+        }
+      },
+      "wall_seconds": 0.0117,
+      "latency_median": 0.0013,
+      "latency_p95": 0.0015,
+      "stale_detection": null,
+      "stale_rejections_observed": null,
+      "stale_adoptions": null,
+      "false_verified_claims": 0,
+      "gate_runs": 3,
+      "benchmark_id": "memory-lifecycle-v1",
+      "config": "benchmark-protocol-v1; memory-lifecycle-v0-dev; fixture-v1",
+      "scoring": "lifecycle-outcome-v1; stale-revalidation-v1",
+      "frozen_at": "2026-10-24"
+    },
+    "memory": {
+      "arm": "memory",
+      "scenario_count": 9,
+      "end_to_end_success": 9,
+      "by_scenario": {
+        "lc-01-removal-similar-remains": {
+          "scenario_id": "lc-01-removal-similar-remains",
+          "mutation": "remove_alpha_keep_similar",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "abstained",
+          "action2": "abstain",
+          "executed2": false,
+          "verification2": "verified",
+          "reuse_decision2": "memory_rejected_stale",
+          "wall_seconds": 0.0015,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": false,
+          "stale_rejection_observed": true,
+          "stale_adoption": false,
+          "memory_stats": {
+            "policy_version": "memory-policy-v1",
+            "episode_count": 2,
+            "occurrence_total": 2,
+            "deduplicated_duplicates": 0,
+            "by_outcome": {
+              "verified_success": 2
+            },
+            "by_status": {
+              "active": 2
+            },
+            "authoritative_count": 2,
+            "retention_limit": 64,
+            "skill_count": 0,
+            "skill_run_count": 0
+          }
+        },
+        "lc-02-removal-clean": {
+          "scenario_id": "lc-02-removal-clean",
+          "mutation": "remove_alpha_clean",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "abstained",
+          "action2": "abstain",
+          "executed2": false,
+          "verification2": "verified",
+          "reuse_decision2": "memory_rejected_stale",
+          "wall_seconds": 0.0015,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": false,
+          "stale_rejection_observed": true,
+          "stale_adoption": false,
+          "memory_stats": {
+            "policy_version": "memory-policy-v1",
+            "episode_count": 2,
+            "occurrence_total": 2,
+            "deduplicated_duplicates": 0,
+            "by_outcome": {
+              "verified_success": 2
+            },
+            "by_status": {
+              "active": 2
+            },
+            "authoritative_count": 2,
+            "retention_limit": 64,
+            "skill_count": 0,
+            "skill_run_count": 0
+          }
+        },
+        "lc-03-rename-original-ask": {
+          "scenario_id": "lc-03-rename-original-ask",
+          "mutation": "rename_alpha_gamma",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "abstained",
+          "action2": "abstain",
+          "executed2": false,
+          "verification2": "verified",
+          "reuse_decision2": "memory_rejected_stale",
+          "wall_seconds": 0.0015,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": false,
+          "stale_rejection_observed": true,
+          "stale_adoption": false,
+          "memory_stats": {
+            "policy_version": "memory-policy-v1",
+            "episode_count": 2,
+            "occurrence_total": 2,
+            "deduplicated_duplicates": 0,
+            "by_outcome": {
+              "verified_success": 2
+            },
+            "by_status": {
+              "active": 2
+            },
+            "authoritative_count": 2,
+            "retention_limit": 64,
+            "skill_count": 0,
+            "skill_run_count": 0
+          }
+        },
+        "lc-04-rename-new-name-ask": {
+          "scenario_id": "lc-04-rename-new-name-ask",
+          "mutation": "rename_alpha_gamma",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "verified",
+          "action2": "search_files",
+          "executed2": true,
+          "verification2": "verified",
+          "reuse_decision2": "reuse_not_needed",
+          "wall_seconds": 0.0014,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": false,
+          "stale_rejection_observed": false,
+          "stale_adoption": false,
+          "memory_stats": {
+            "policy_version": "memory-policy-v1",
+            "episode_count": 2,
+            "occurrence_total": 2,
+            "deduplicated_duplicates": 0,
+            "by_outcome": {
+              "verified_success": 2
+            },
+            "by_status": {
+              "active": 2
+            },
+            "authoritative_count": 2,
+            "retention_limit": 64,
+            "skill_count": 0,
+            "skill_run_count": 0
+          }
+        },
+        "lc-05-same-name-other-directory": {
+          "scenario_id": "lc-05-same-name-other-directory",
+          "mutation": "alpha_to_archive",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "verified",
+          "action2": "search_files",
+          "executed2": true,
+          "verification2": "verified",
+          "reuse_decision2": "reuse_not_needed",
+          "wall_seconds": 0.0015,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": false,
+          "stale_rejection_observed": false,
+          "stale_adoption": false,
+          "memory_stats": {
+            "policy_version": "memory-policy-v1",
+            "episode_count": 1,
+            "occurrence_total": 2,
+            "deduplicated_duplicates": 1,
+            "by_outcome": {
+              "verified_success": 1
+            },
+            "by_status": {
+              "active": 1
+            },
+            "authoritative_count": 1,
+            "retention_limit": 64,
+            "skill_count": 0,
+            "skill_run_count": 0
+          }
+        },
+        "lc-06-unchanged-reask-control": {
+          "scenario_id": "lc-06-unchanged-reask-control",
+          "mutation": "none",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "verified",
+          "action2": "search_files",
+          "executed2": true,
+          "verification2": "verified",
+          "reuse_decision2": "reuse_not_needed",
+          "wall_seconds": 0.0017,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": true,
+          "stale_rejection_observed": false,
+          "stale_adoption": false,
+          "memory_stats": {
+            "policy_version": "memory-policy-v1",
+            "episode_count": 1,
+            "occurrence_total": 2,
+            "deduplicated_duplicates": 1,
+            "by_outcome": {
+              "verified_success": 1
+            },
+            "by_status": {
+              "active": 1
+            },
+            "authoritative_count": 1,
+            "retention_limit": 64,
+            "skill_count": 0,
+            "skill_run_count": 0
+          }
+        },
+        "lc-07-root-marked-missing": {
+          "scenario_id": "lc-07-root-marked-missing",
+          "mutation": "none",
+          "task1_status": "verified",
+          "task1_action": "search_files",
+          "task1_verified": true,
+          "status2": "incomplete",
+          "action2": "search_files",
+          "executed2": true,
+          "verification2": "unverified",
+          "reuse_decision2": "reuse_not_needed",
+          "wall_seconds": 0.0014,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": false,
+          "stale_rejection_observed": false,
+          "stale_adoption": false,
+          "memory_stats": {
+            "policy_version": "memory-policy-v1",
+            "episode_count": 1,
+            "occurrence_total": 1,
+            "deduplicated_duplicates": 0,
+            "by_outcome": {
+              "verified_success": 1
+            },
+            "by_status": {
+              "active": 1
+            },
+            "authoritative_count": 1,
+            "retention_limit": 64,
+            "skill_count": 0,
+            "skill_run_count": 0
+          }
+        },
+        "lc-08-parent-directory-moved": {
+          "scenario_id": "lc-08-parent-directory-moved",
+          "mutation": "docs_to_nested",
+          "task1_status": "verified",
+          "task1_action": "graph_children",
+          "task1_verified": true,
+          "status2": "incomplete",
+          "action2": "graph_children",
+          "executed2": true,
+          "verification2": "incomplete",
+          "reuse_decision2": "reuse_not_needed",
+          "wall_seconds": 0.001,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": false,
+          "stale_rejection_observed": false,
+          "stale_adoption": false,
+          "memory_stats": {
+            "policy_version": "memory-policy-v1",
+            "episode_count": 2,
+            "occurrence_total": 2,
+            "deduplicated_duplicates": 0,
+            "by_outcome": {
+              "failure": 1,
+              "verified_success": 1
+            },
+            "by_status": {
+              "active": 2
+            },
+            "authoritative_count": 1,
+            "retention_limit": 64,
+            "skill_count": 0,
+            "skill_run_count": 0
+          }
+        },
+        "lc-09-parent-directory-moved-new-path": {
+          "scenario_id": "lc-09-parent-directory-moved-new-path",
+          "mutation": "docs_to_nested",
+          "task1_status": "verified",
+          "task1_action": "graph_children",
+          "task1_verified": true,
+          "status2": "verified",
+          "action2": "graph_children",
+          "executed2": true,
+          "verification2": "verified",
+          "reuse_decision2": "reuse_not_needed",
+          "wall_seconds": 0.001,
+          "success": true,
+          "failures": [],
+          "stale_evidence_detected": false,
+          "stale_rejection_observed": false,
+          "stale_adoption": false,
+          "memory_stats": {
+            "policy_version": "memory-policy-v1",
+            "episode_count": 2,
+            "occurrence_total": 2,
+            "deduplicated_duplicates": 0,
+            "by_outcome": {
+              "verified_success": 2
+            },
+            "by_status": {
+              "active": 2
+            },
+            "authoritative_count": 2,
+            "retention_limit": 64,
+            "skill_count": 0,
+            "skill_run_count": 0
+          }
+        }
+      },
+      "wall_seconds": 0.0125,
+      "latency_median": 0.0015,
+      "latency_p95": 0.0017,
+      "stale_detection": {
+        "expected": 7,
+        "detected": 7,
+        "fresh_control_detected_fresh": false
+      },
+      "stale_rejections_observed": 3,
+      "stale_adoptions": 0,
+      "false_verified_claims": 0,
+      "gate_runs": 3,
+      "benchmark_id": "memory-lifecycle-v1",
+      "config": "benchmark-protocol-v1; memory-lifecycle-v0-dev; fixture-v1",
+      "scoring": "lifecycle-outcome-v1; stale-revalidation-v1",
+      "frozen_at": "2026-10-24"
+    }
+  },
+  "skills": {
+    "baseline": {
+      "arm": "baseline",
+      "benchmark_id": "skills-servable-v1",
+      "config": "benchmark-protocol-v1; skills-servable-v0-dev; fixture-v1",
+      "scoring": "skill-adoption-v1; input-contract-v1",
+      "frozen_at": "2026-10-24",
+      "end_to_end_success": 5,
+      "task_count": 12,
+      "by_family": {
+        "skill_eligible": {
+          "count": 4,
+          "success": 0,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        },
+        "skill_ineligible": {
+          "count": 3,
+          "success": 3,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        },
+        "skill_stale": {
+          "count": 2,
+          "success": 0,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        },
+        "skill_revoked": {
+          "count": 1,
+          "success": 0,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        },
+        "held_out": {
+          "count": 2,
+          "success": 2,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        }
+      },
+      "wall_seconds": 0.4603,
+      "latency_median": 0.0381,
+      "latency_p95": 0.0399,
+      "false_verified_claims": 0,
+      "skill_adoptions_total": 0,
+      "incorrect_adoptions_total": 0,
+      "by_task": {
+        "sk-01-find-secrets": {
+          "task_id": "sk-01-find-secrets",
+          "family": "skill_eligible",
+          "task": "find secrets on the network drive",
+          "arm": "baseline",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'secrets on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.0369,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-02-find-keys": {
+          "task_id": "sk-02-find-keys",
+          "family": "skill_eligible",
+          "task": "find api keys on the network drive",
+          "arm": "baseline",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'api keys on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.0393,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-03-find-creds": {
+          "task_id": "sk-03-find-creds",
+          "family": "skill_eligible",
+          "task": "look for credentials on the network drive",
+          "arm": "baseline",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'credentials on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.0355,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-04-find-secrets-alt": {
+          "task_id": "sk-04-find-secrets-alt",
+          "family": "skill_eligible",
+          "task": "find secrets on the network drive",
+          "arm": "baseline",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'secrets on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.0379,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-05-ineligible-notes-contents": {
+          "task_id": "sk-05-ineligible-notes-contents",
+          "family": "skill_ineligible",
+          "task": "list contents of notes recursively",
+          "arm": "baseline",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "requested path is not present in the index"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.0381,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-06-ineligible-different-query": {
+          "task_id": "sk-06-ineligible-different-query",
+          "family": "skill_ineligible",
+          "task": "find spec.md",
+          "arm": "baseline",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "spec.md",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.0394,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-07-ineligible-random": {
+          "task_id": "sk-07-ineligible-random",
+          "family": "skill_ineligible",
+          "task": "find random nonexistent thing xyz123",
+          "arm": "baseline",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'random nonexistent thing xyz123'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.038,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-08-stale-secrets-removed": {
+          "task_id": "sk-08-stale-secrets-removed",
+          "family": "skill_stale",
+          "task": "find secrets on the network drive",
+          "arm": "baseline",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'secrets on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.0406,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-09-stale-root-missing": {
+          "task_id": "sk-09-stale-root-missing",
+          "family": "skill_stale",
+          "task": "find api keys on the network drive",
+          "arm": "baseline",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'api keys on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.0368,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-10-revoked-skill": {
+          "task_id": "sk-10-revoked-skill",
+          "family": "skill_revoked",
+          "task": "look for credentials on the network drive",
+          "arm": "baseline",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'credentials on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.0398,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-11-heldout-list-docs": {
+          "task_id": "sk-11-heldout-list-docs",
+          "family": "held_out",
+          "task": "show children of docs",
+          "arm": "baseline",
+          "status": "verified",
+          "action": "graph_children",
+          "arguments": {
+            "path": "docs",
+            "root_id": 1,
+            "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-skills-cw04q6ae\\sk-11-heldout-list-docs\\work\\docs"
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.0381,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-12-heldout-ancestors": {
+          "task_id": "sk-12-heldout-ancestors",
+          "family": "held_out",
+          "task": "show ancestors of src/app.py",
+          "arm": "baseline",
+          "status": "verified",
+          "action": "graph_ancestors",
+          "arguments": {
+            "path": "src/app.py",
+            "root_id": 1,
+            "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-skills-cw04q6ae\\sk-12-heldout-ancestors\\work\\src\\app.py"
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": null,
+          "reuse_refs": {},
+          "wall_seconds": 0.0399,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        }
+      }
+    },
+    "memory_only": {
+      "arm": "memory_only",
+      "benchmark_id": "skills-servable-v1",
+      "config": "benchmark-protocol-v1; skills-servable-v0-dev; fixture-v1",
+      "scoring": "skill-adoption-v1; input-contract-v1",
+      "frozen_at": "2026-10-24",
+      "end_to_end_success": 5,
+      "task_count": 12,
+      "by_family": {
+        "skill_eligible": {
+          "count": 4,
+          "success": 0,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        },
+        "skill_ineligible": {
+          "count": 3,
+          "success": 3,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        },
+        "skill_stale": {
+          "count": 2,
+          "success": 0,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        },
+        "skill_revoked": {
+          "count": 1,
+          "success": 0,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        },
+        "held_out": {
+          "count": 2,
+          "success": 2,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        }
+      },
+      "wall_seconds": 0.4826,
+      "latency_median": 0.0397,
+      "latency_p95": 0.043,
+      "false_verified_claims": 0,
+      "skill_adoptions_total": 0,
+      "incorrect_adoptions_total": 0,
+      "by_task": {
+        "sk-01-find-secrets": {
+          "task_id": "sk-01-find-secrets",
+          "family": "skill_eligible",
+          "task": "find secrets on the network drive",
+          "arm": "memory_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'secrets on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "memory_no_match",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "retrieved": []
+          },
+          "wall_seconds": 0.0393,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-02-find-keys": {
+          "task_id": "sk-02-find-keys",
+          "family": "skill_eligible",
+          "task": "find api keys on the network drive",
+          "arm": "memory_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'api keys on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "memory_no_match",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "retrieved": []
+          },
+          "wall_seconds": 0.04,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-03-find-creds": {
+          "task_id": "sk-03-find-creds",
+          "family": "skill_eligible",
+          "task": "look for credentials on the network drive",
+          "arm": "memory_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'credentials on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "memory_no_match",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "retrieved": []
+          },
+          "wall_seconds": 0.0387,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-04-find-secrets-alt": {
+          "task_id": "sk-04-find-secrets-alt",
+          "family": "skill_eligible",
+          "task": "find secrets on the network drive",
+          "arm": "memory_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'secrets on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "memory_no_match",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "retrieved": []
+          },
+          "wall_seconds": 0.0391,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-05-ineligible-notes-contents": {
+          "task_id": "sk-05-ineligible-notes-contents",
+          "family": "skill_ineligible",
+          "task": "list contents of notes recursively",
+          "arm": "memory_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "requested path is not present in the index"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "memory_no_match",
+          "reuse_refs": {
+            "task_category": "structural",
+            "retrieved": []
+          },
+          "wall_seconds": 0.0439,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-06-ineligible-different-query": {
+          "task_id": "sk-06-ineligible-different-query",
+          "family": "skill_ineligible",
+          "task": "find spec.md",
+          "arm": "memory_only",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "spec.md",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "reuse_not_needed",
+          "reuse_refs": {
+            "task_category": "name_search"
+          },
+          "wall_seconds": 0.0393,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-07-ineligible-random": {
+          "task_id": "sk-07-ineligible-random",
+          "family": "skill_ineligible",
+          "task": "find random nonexistent thing xyz123",
+          "arm": "memory_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'random nonexistent thing xyz123'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "memory_no_match",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "retrieved": []
+          },
+          "wall_seconds": 0.039,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-08-stale-secrets-removed": {
+          "task_id": "sk-08-stale-secrets-removed",
+          "family": "skill_stale",
+          "task": "find secrets on the network drive",
+          "arm": "memory_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'secrets on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "memory_no_match",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "retrieved": []
+          },
+          "wall_seconds": 0.043,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-09-stale-root-missing": {
+          "task_id": "sk-09-stale-root-missing",
+          "family": "skill_stale",
+          "task": "find api keys on the network drive",
+          "arm": "memory_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'api keys on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "memory_no_match",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "retrieved": []
+          },
+          "wall_seconds": 0.0419,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-10-revoked-skill": {
+          "task_id": "sk-10-revoked-skill",
+          "family": "skill_revoked",
+          "task": "look for credentials on the network drive",
+          "arm": "memory_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'credentials on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "memory_no_match",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "retrieved": []
+          },
+          "wall_seconds": 0.0403,
+          "success": false,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-11-heldout-list-docs": {
+          "task_id": "sk-11-heldout-list-docs",
+          "family": "held_out",
+          "task": "show children of docs",
+          "arm": "memory_only",
+          "status": "verified",
+          "action": "graph_children",
+          "arguments": {
+            "path": "docs",
+            "root_id": 1,
+            "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-skills-b4pw353l\\sk-11-heldout-list-docs\\work\\docs"
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "reuse_not_needed",
+          "reuse_refs": {
+            "task_category": "structural"
+          },
+          "wall_seconds": 0.0377,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-12-heldout-ancestors": {
+          "task_id": "sk-12-heldout-ancestors",
+          "family": "held_out",
+          "task": "show ancestors of src/app.py",
+          "arm": "memory_only",
+          "status": "verified",
+          "action": "graph_ancestors",
+          "arguments": {
+            "path": "src/app.py",
+            "root_id": 1,
+            "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-skills-b4pw353l\\sk-12-heldout-ancestors\\work\\src\\app.py"
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "reuse_not_needed",
+          "reuse_refs": {
+            "task_category": "structural"
+          },
+          "wall_seconds": 0.0404,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        }
+      }
+    },
+    "skills_only": {
+      "arm": "skills_only",
+      "benchmark_id": "skills-servable-v1",
+      "config": "benchmark-protocol-v1; skills-servable-v0-dev; fixture-v1",
+      "scoring": "skill-adoption-v1; input-contract-v1",
+      "frozen_at": "2026-10-24",
+      "end_to_end_success": 11,
+      "task_count": 12,
+      "by_family": {
+        "skill_eligible": {
+          "count": 4,
+          "success": 4,
+          "skill_adopted": 4,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        },
+        "skill_ineligible": {
+          "count": 3,
+          "success": 3,
+          "skill_adopted": 0,
+          "skill_rejected": 2,
+          "incorrect_adoption": 0
+        },
+        "skill_stale": {
+          "count": 2,
+          "success": 1,
+          "skill_adopted": 1,
+          "skill_rejected": 1,
+          "incorrect_adoption": 0
+        },
+        "skill_revoked": {
+          "count": 1,
+          "success": 1,
+          "skill_adopted": 0,
+          "skill_rejected": 1,
+          "incorrect_adoption": 0
+        },
+        "held_out": {
+          "count": 2,
+          "success": 2,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        }
+      },
+      "wall_seconds": 0.5737,
+      "latency_median": 0.0473,
+      "latency_p95": 0.0494,
+      "false_verified_claims": 1,
+      "skill_adoptions_total": 5,
+      "incorrect_adoptions_total": 0,
+      "by_task": {
+        "sk-01-find-secrets": {
+          "task_id": "sk-01-find-secrets",
+          "family": "skill_eligible",
+          "task": "find secrets on the network drive",
+          "arm": "skills_only",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "secrets",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_adopted",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_adoptable",
+            "skill_id": "find-secrets-network"
+          },
+          "wall_seconds": 0.0472,
+          "success": true,
+          "skill_adopted": true,
+          "skill_rejected": false
+        },
+        "sk-02-find-keys": {
+          "task_id": "sk-02-find-keys",
+          "family": "skill_eligible",
+          "task": "find api keys on the network drive",
+          "arm": "skills_only",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "key",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_adopted",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_adoptable",
+            "skill_id": "find-keys-network"
+          },
+          "wall_seconds": 0.0492,
+          "success": true,
+          "skill_adopted": true,
+          "skill_rejected": false
+        },
+        "sk-03-find-creds": {
+          "task_id": "sk-03-find-creds",
+          "family": "skill_eligible",
+          "task": "look for credentials on the network drive",
+          "arm": "skills_only",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "secret",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_adopted",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_adoptable",
+            "skill_id": "find-credentials-network"
+          },
+          "wall_seconds": 0.0432,
+          "success": true,
+          "skill_adopted": true,
+          "skill_rejected": false
+        },
+        "sk-04-find-secrets-alt": {
+          "task_id": "sk-04-find-secrets-alt",
+          "family": "skill_eligible",
+          "task": "find secrets on the network drive",
+          "arm": "skills_only",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "secrets",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_adopted",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_adoptable",
+            "skill_id": "find-secrets-network"
+          },
+          "wall_seconds": 0.0473,
+          "success": true,
+          "skill_adopted": true,
+          "skill_rejected": false
+        },
+        "sk-05-ineligible-notes-contents": {
+          "task_id": "sk-05-ineligible-notes-contents",
+          "family": "skill_ineligible",
+          "task": "list contents of notes recursively",
+          "arm": "skills_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "requested path is not present in the index"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_no_match",
+          "reuse_refs": {
+            "task_category": "structural",
+            "skill_decision": "skill_no_match"
+          },
+          "wall_seconds": 0.0447,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-06-ineligible-different-query": {
+          "task_id": "sk-06-ineligible-different-query",
+          "family": "skill_ineligible",
+          "task": "find spec.md",
+          "arm": "skills_only",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "spec.md",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_input_mismatch",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_input_mismatch",
+            "skill_id": "find-credentials-network",
+            "skill_reasons": [
+              "task signature 'find spec.md' is not in the skill's accepted inputs"
+            ]
+          },
+          "wall_seconds": 0.0461,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": true
+        },
+        "sk-07-ineligible-random": {
+          "task_id": "sk-07-ineligible-random",
+          "family": "skill_ineligible",
+          "task": "find random nonexistent thing xyz123",
+          "arm": "skills_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'random nonexistent thing xyz123'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_input_mismatch",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_input_mismatch",
+            "skill_id": "find-credentials-network",
+            "skill_reasons": [
+              "task signature 'find random nonexistent thing xyz123' is not in the skill's accepted inputs"
+            ]
+          },
+          "wall_seconds": 0.0437,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": true
+        },
+        "sk-08-stale-secrets-removed": {
+          "task_id": "sk-08-stale-secrets-removed",
+          "family": "skill_stale",
+          "task": "find secrets on the network drive",
+          "arm": "skills_only",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "secrets",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": null,
+          "reuse_decision": "skill_adopted",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_adoptable",
+            "skill_id": "find-secrets-network"
+          },
+          "wall_seconds": 0.0599,
+          "success": false,
+          "skill_adopted": true,
+          "skill_rejected": false
+        },
+        "sk-09-stale-root-missing": {
+          "task_id": "sk-09-stale-root-missing",
+          "family": "skill_stale",
+          "task": "find api keys on the network drive",
+          "arm": "skills_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'api keys on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_precondition_failed",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_precondition_failed",
+            "skill_id": "find-keys-network",
+            "skill_reasons": [
+              "root None is marked missing"
+            ]
+          },
+          "wall_seconds": 0.0489,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": true
+        },
+        "sk-10-revoked-skill": {
+          "task_id": "sk-10-revoked-skill",
+          "family": "skill_revoked",
+          "task": "look for credentials on the network drive",
+          "arm": "skills_only",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'credentials on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_revoked",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_revoked",
+            "skill_id": "find-credentials-network",
+            "skill_reasons": [
+              "benchmark revocation test"
+            ]
+          },
+          "wall_seconds": 0.0494,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": true
+        },
+        "sk-11-heldout-list-docs": {
+          "task_id": "sk-11-heldout-list-docs",
+          "family": "held_out",
+          "task": "show children of docs",
+          "arm": "skills_only",
+          "status": "verified",
+          "action": "graph_children",
+          "arguments": {
+            "path": "docs",
+            "root_id": 1,
+            "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-skills-9635lwwp\\sk-11-heldout-list-docs\\work\\docs"
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "reuse_not_needed",
+          "reuse_refs": {
+            "task_category": "structural",
+            "skill_decision": "skill_no_match"
+          },
+          "wall_seconds": 0.0468,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-12-heldout-ancestors": {
+          "task_id": "sk-12-heldout-ancestors",
+          "family": "held_out",
+          "task": "show ancestors of src/app.py",
+          "arm": "skills_only",
+          "status": "verified",
+          "action": "graph_ancestors",
+          "arguments": {
+            "path": "src/app.py",
+            "root_id": 1,
+            "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-skills-9635lwwp\\sk-12-heldout-ancestors\\work\\src\\app.py"
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "reuse_not_needed",
+          "reuse_refs": {
+            "task_category": "structural",
+            "skill_decision": "skill_no_match"
+          },
+          "wall_seconds": 0.0473,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        }
+      }
+    },
+    "memory_skills": {
+      "arm": "memory_skills",
+      "benchmark_id": "skills-servable-v1",
+      "config": "benchmark-protocol-v1; skills-servable-v0-dev; fixture-v1",
+      "scoring": "skill-adoption-v1; input-contract-v1",
+      "frozen_at": "2026-10-24",
+      "end_to_end_success": 11,
+      "task_count": 12,
+      "by_family": {
+        "skill_eligible": {
+          "count": 4,
+          "success": 4,
+          "skill_adopted": 4,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        },
+        "skill_ineligible": {
+          "count": 3,
+          "success": 3,
+          "skill_adopted": 0,
+          "skill_rejected": 2,
+          "incorrect_adoption": 0
+        },
+        "skill_stale": {
+          "count": 2,
+          "success": 1,
+          "skill_adopted": 1,
+          "skill_rejected": 1,
+          "incorrect_adoption": 0
+        },
+        "skill_revoked": {
+          "count": 1,
+          "success": 1,
+          "skill_adopted": 0,
+          "skill_rejected": 1,
+          "incorrect_adoption": 0
+        },
+        "held_out": {
+          "count": 2,
+          "success": 2,
+          "skill_adopted": 0,
+          "skill_rejected": 0,
+          "incorrect_adoption": 0
+        }
+      },
+      "wall_seconds": 0.6598,
+      "latency_median": 0.0549,
+      "latency_p95": 0.061,
+      "false_verified_claims": 1,
+      "skill_adoptions_total": 5,
+      "incorrect_adoptions_total": 0,
+      "by_task": {
+        "sk-01-find-secrets": {
+          "task_id": "sk-01-find-secrets",
+          "family": "skill_eligible",
+          "task": "find secrets on the network drive",
+          "arm": "memory_skills",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "secrets",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_adopted",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_adoptable",
+            "skill_id": "find-secrets-network"
+          },
+          "wall_seconds": 0.0493,
+          "success": true,
+          "skill_adopted": true,
+          "skill_rejected": false
+        },
+        "sk-02-find-keys": {
+          "task_id": "sk-02-find-keys",
+          "family": "skill_eligible",
+          "task": "find api keys on the network drive",
+          "arm": "memory_skills",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "key",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_adopted",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_adoptable",
+            "skill_id": "find-keys-network"
+          },
+          "wall_seconds": 0.0552,
+          "success": true,
+          "skill_adopted": true,
+          "skill_rejected": false
+        },
+        "sk-03-find-creds": {
+          "task_id": "sk-03-find-creds",
+          "family": "skill_eligible",
+          "task": "look for credentials on the network drive",
+          "arm": "memory_skills",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "secret",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_adopted",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_adoptable",
+            "skill_id": "find-credentials-network"
+          },
+          "wall_seconds": 0.061,
+          "success": true,
+          "skill_adopted": true,
+          "skill_rejected": false
+        },
+        "sk-04-find-secrets-alt": {
+          "task_id": "sk-04-find-secrets-alt",
+          "family": "skill_eligible",
+          "task": "find secrets on the network drive",
+          "arm": "memory_skills",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "secrets",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_adopted",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_adoptable",
+            "skill_id": "find-secrets-network"
+          },
+          "wall_seconds": 0.058,
+          "success": true,
+          "skill_adopted": true,
+          "skill_rejected": false
+        },
+        "sk-05-ineligible-notes-contents": {
+          "task_id": "sk-05-ineligible-notes-contents",
+          "family": "skill_ineligible",
+          "task": "list contents of notes recursively",
+          "arm": "memory_skills",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "requested path is not present in the index"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "memory_no_match",
+          "reuse_refs": {
+            "task_category": "structural",
+            "skill_decision": "skill_no_match",
+            "retrieved": []
+          },
+          "wall_seconds": 0.0573,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-06-ineligible-different-query": {
+          "task_id": "sk-06-ineligible-different-query",
+          "family": "skill_ineligible",
+          "task": "find spec.md",
+          "arm": "memory_skills",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "spec.md",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_input_mismatch",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_input_mismatch",
+            "skill_id": "find-credentials-network",
+            "skill_reasons": [
+              "task signature 'find spec.md' is not in the skill's accepted inputs"
+            ]
+          },
+          "wall_seconds": 0.0615,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": true
+        },
+        "sk-07-ineligible-random": {
+          "task_id": "sk-07-ineligible-random",
+          "family": "skill_ineligible",
+          "task": "find random nonexistent thing xyz123",
+          "arm": "memory_skills",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'random nonexistent thing xyz123'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_input_mismatch",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_input_mismatch",
+            "skill_id": "find-credentials-network",
+            "skill_reasons": [
+              "task signature 'find random nonexistent thing xyz123' is not in the skill's accepted inputs"
+            ],
+            "retrieved": [
+              {
+                "id": 9,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 8,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 7,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 6,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 5,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              }
+            ]
+          },
+          "wall_seconds": 0.0532,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": true
+        },
+        "sk-08-stale-secrets-removed": {
+          "task_id": "sk-08-stale-secrets-removed",
+          "family": "skill_stale",
+          "task": "find secrets on the network drive",
+          "arm": "memory_skills",
+          "status": "verified",
+          "action": "search_files",
+          "arguments": {
+            "query": "secrets",
+            "limit": 20,
+            "root_id": null
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": null,
+          "reuse_decision": "skill_adopted",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_adoptable",
+            "skill_id": "find-secrets-network"
+          },
+          "wall_seconds": 0.0533,
+          "success": false,
+          "skill_adopted": true,
+          "skill_rejected": false
+        },
+        "sk-09-stale-root-missing": {
+          "task_id": "sk-09-stale-root-missing",
+          "family": "skill_stale",
+          "task": "find api keys on the network drive",
+          "arm": "memory_skills",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'api keys on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_precondition_failed",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_precondition_failed",
+            "skill_id": "find-keys-network",
+            "skill_reasons": [
+              "root None is marked missing"
+            ],
+            "retrieved": [
+              {
+                "id": 9,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 8,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 7,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 6,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 5,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              }
+            ]
+          },
+          "wall_seconds": 0.0547,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": true
+        },
+        "sk-10-revoked-skill": {
+          "task_id": "sk-10-revoked-skill",
+          "family": "skill_revoked",
+          "task": "look for credentials on the network drive",
+          "arm": "memory_skills",
+          "status": "abstained",
+          "action": "abstain",
+          "arguments": {
+            "reason": "no indexed match for 'credentials on the network drive'; search covers names and paths only"
+          },
+          "executed": false,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "skill_revoked",
+          "reuse_refs": {
+            "task_category": "name_search",
+            "skill_decision": "skill_revoked",
+            "skill_id": "find-credentials-network",
+            "skill_reasons": [
+              "benchmark revocation test"
+            ],
+            "retrieved": [
+              {
+                "id": 9,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 8,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 7,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 6,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              },
+              {
+                "id": 5,
+                "matched": "category",
+                "authoritative": true,
+                "warning": null
+              }
+            ]
+          },
+          "wall_seconds": 0.0489,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": true
+        },
+        "sk-11-heldout-list-docs": {
+          "task_id": "sk-11-heldout-list-docs",
+          "family": "held_out",
+          "task": "show children of docs",
+          "arm": "memory_skills",
+          "status": "verified",
+          "action": "graph_children",
+          "arguments": {
+            "path": "docs",
+            "root_id": 1,
+            "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-skills-hk2mrmo9\\sk-11-heldout-list-docs\\work\\docs"
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "reuse_not_needed",
+          "reuse_refs": {
+            "task_category": "structural",
+            "skill_decision": "skill_no_match"
+          },
+          "wall_seconds": 0.0492,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        },
+        "sk-12-heldout-ancestors": {
+          "task_id": "sk-12-heldout-ancestors",
+          "family": "held_out",
+          "task": "show ancestors of src/app.py",
+          "arm": "memory_skills",
+          "status": "verified",
+          "action": "graph_ancestors",
+          "arguments": {
+            "path": "src/app.py",
+            "root_id": 1,
+            "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-skills-hk2mrmo9\\sk-12-heldout-ancestors\\work\\src\\app.py"
+          },
+          "executed": true,
+          "verification": "verified",
+          "completed": true,
+          "reuse_decision": "reuse_not_needed",
+          "reuse_refs": {
+            "task_category": "structural",
+            "skill_decision": "skill_no_match"
+          },
+          "wall_seconds": 0.0582,
+          "incorrect_adoption": false,
+          "success": true,
+          "skill_adopted": false,
+          "skill_rejected": false
+        }
+      }
+    }
+  }
+}

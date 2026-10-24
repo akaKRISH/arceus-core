@@ -27,11 +27,13 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sqlite3
 from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any, Literal
 
+from arceus_core.abstention import AbstentionReason
 from arceus_core.errors import (
     ControllerValidationError,
     InferenceError,
@@ -204,6 +206,12 @@ class Proposal:
         "deterministic", "model_hypothesis_unverified", "validated_against_index"
     ] = "deterministic"
     notes: tuple[str, ...] = ()
+    # Phase 7.1: typed abstention attribution. ``abstain_reason_code`` is set
+    # only on abstentions; ``abstain_evidence`` names the indexed tokens that
+    # made a failed deterministic mapping a *recoverable* gap (empty for
+    # terminal reasons). Both are explicit data, never parsed from free text.
+    abstain_reason_code: AbstentionReason | None = None
+    abstain_evidence: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -217,6 +225,10 @@ class Proposal:
             "origin": self.origin,
             "provenance": self.provenance,
             "notes": list(self.notes),
+            "abstain_reason_code": (
+                self.abstain_reason_code.value if self.abstain_reason_code else None
+            ),
+            "abstain_evidence": list(self.abstain_evidence),
         }
 
 
@@ -388,6 +400,82 @@ def _strip_generic_nouns(query: str) -> str:
     """
 
     return " ".join(token for token in query.split() if token.casefold() not in _GENERIC_NOUNS)
+
+
+#: Instruction words that never constitute evidence on their own. A token that
+#: only restates the command ("find", "locate") or a container noun ("file")
+#: must not turn a genuine no-evidence abstention into a recoverable gap.
+_EVIDENCE_STOPWORDS: frozenset[str] = (
+    _INSTRUCTION_SKIP_TOKENS
+    | _GENERIC_NOUNS
+    | frozenset(
+        {
+            "about",
+            "and",
+            "are",
+            "can",
+            "could",
+            "does",
+            "find",
+            "from",
+            "give",
+            "have",
+            "into",
+            "locate",
+            "look",
+            "open",
+            "please",
+            "search",
+            "some",
+            "tell",
+            "that",
+            "these",
+            "thing",
+            "this",
+            "those",
+            "when",
+            "where",
+            "which",
+            "with",
+            "you",
+        }
+    )
+)
+
+MAX_EVIDENCE_TOKENS = 4
+
+
+def _evidence_tokens(instruction: str) -> tuple[str, ...]:
+    """Extract at most four meaningful tokens from the first instruction line."""
+
+    tokens: list[str] = []
+    for raw in re.findall(r"[A-Za-z0-9][A-Za-z0-9._-]+", instruction):
+        token = raw.strip("._-").casefold()
+        if len(token) < 4 or token in _EVIDENCE_STOPWORDS:
+            continue
+        if token not in tokens:
+            tokens.append(token)
+    return tuple(tokens[:MAX_EVIDENCE_TOKENS])
+
+
+def _token_evidence(
+    conn: sqlite3.Connection, instruction: str, *, limit: int = MAX_EVIDENCE_TOKENS
+) -> tuple[str, ...]:
+    """Return indexed tokens from ``instruction``, proving evidence exists.
+
+    Deterministic and bounded: at most ``limit`` token searches, read-only, and
+    used only to classify a failed mapping as recoverable. It never changes a
+    decision by itself — the planner still abstains.
+    """
+
+    hits: list[str] = []
+    for token in _evidence_tokens(instruction)[:limit]:
+        try:
+            if search(conn, token, SearchFilters(limit=1)).hits:
+                hits.append(token)
+        except QueryError:
+            continue
+    return tuple(hits)
 
 
 def classify_task(task: str) -> str:
@@ -656,7 +744,7 @@ class CognitiveController:
         task = task.strip()
         if not task or len(task) > MAX_TASK_LENGTH:
             return (
-                self._abstain_proposal("task is empty or oversized"),
+                self._abstain_proposal("task is empty or oversized", AbstentionReason.INVALID_TASK),
                 DecisionTrace(
                     origin="deterministic",
                     rejection_stage="task_input",
@@ -847,14 +935,19 @@ class CognitiveController:
         notes = (note,) if note else ()
         route = classify_task(instruction)
         if route == "invalid":
-            return self._abstain_proposal("task is empty or oversized", notes=notes)
+            return self._abstain_proposal(
+                "task is empty or oversized", AbstentionReason.INVALID_TASK, notes=notes
+            )
         if route == "unsafe_request":
             return self._abstain_proposal(
-                "task requests unsupported non-read-only operations", notes=notes
+                "task requests unsupported non-read-only operations",
+                AbstentionReason.UNSAFE_REQUEST,
+                notes=notes,
             )
         if route == "content_request":
             return self._abstain_proposal(
                 "task asks what a document says; the index stores names and paths only",
+                AbstentionReason.CONTENT_UNAVAILABLE,
                 notes=notes,
             )
 
@@ -864,7 +957,11 @@ class CognitiveController:
             action = "graph_ancestors" if wants_ancestors else "graph_children"
             candidate = _path_candidate(instruction)
             if candidate is None:
-                return self._abstain_proposal("no indexed path found in the task", notes=notes)
+                return self._abstain_proposal(
+                    "no indexed path found in the task",
+                    AbstentionReason.NO_INDEXED_PATH,
+                    notes=notes,
+                )
             try:
                 proposal = self._tool_proposal(
                     action,
@@ -877,6 +974,7 @@ class CognitiveController:
             except (ControllerValidationError, RootNotFoundError, RootError):
                 return self._abstain_proposal(
                     "requested path is not inside a registered indexed root",
+                    AbstentionReason.PATH_NOT_IN_SCOPE,
                     notes=notes,
                 )
             # Evidence grounding: a graph call can only answer from the index,
@@ -887,18 +985,26 @@ class CognitiveController:
                 is None
             ):
                 return self._abstain_proposal(
-                    "requested path is not present in the index", notes=notes
+                    "requested path is not present in the index",
+                    AbstentionReason.PATH_NOT_INDEXED,
+                    notes=notes,
                 )
             return proposal
 
         # name_search: query the index and let evidence decide the action.
         query = _search_query(instruction)
         if not query:
-            return self._abstain_proposal("no usable search target in task", notes=notes)
+            return self._abstain_proposal(
+                "no usable search target in task", AbstentionReason.NO_SEARCH_TARGET, notes=notes
+            )
         try:
             result = search(self._conn, query, SearchFilters(limit=10))
         except QueryError:
-            return self._abstain_proposal("search target failed validation", notes=notes)
+            return self._abstain_proposal(
+                "search target failed validation",
+                AbstentionReason.SEARCH_TARGET_INVALID,
+                notes=notes,
+            )
         distinct_paths: list[str] = []
         for hit in result.hits:
             if hit.entry.rel_path not in distinct_paths:
@@ -922,9 +1028,20 @@ class CognitiveController:
                         distinct_paths = refined_paths
                         query = refined
         if not distinct_paths:
+            # The phrase failed, but a meaningful token may still name indexed
+            # evidence. That is an interpretation gap (recoverable), not a
+            # no-evidence abstention (terminal). The planner still abstains.
+            evidence = _token_evidence(self._conn, instruction)
+            code = (
+                AbstentionReason.UNMAPPED_INTENT
+                if evidence
+                else AbstentionReason.NO_INDEXED_EVIDENCE
+            )
             return self._abstain_proposal(
                 f"no indexed match for {query!r}; search covers names and paths only",
+                code,
                 notes=notes,
+                evidence=evidence,
             )
         if len(distinct_paths) > 1:
             preview = ", ".join(distinct_paths[:5])
@@ -963,7 +1080,13 @@ class CognitiveController:
             notes=notes,
         )
 
-    def _abstain_proposal(self, reason: str, notes: tuple[str, ...] = ()) -> Proposal:
+    def _abstain_proposal(
+        self,
+        reason: str,
+        code: AbstentionReason,
+        notes: tuple[str, ...] = (),
+        evidence: tuple[str, ...] = (),
+    ) -> Proposal:
         return Proposal(
             action="abstain",
             arguments={"reason": reason},
@@ -972,6 +1095,8 @@ class CognitiveController:
             permission_level="none",
             provenance="deterministic",
             notes=notes,
+            abstain_reason_code=code,
+            abstain_evidence=evidence,
         )
 
     # -- shared tool-action construction -----------------------------------------
@@ -982,9 +1107,13 @@ class CognitiveController:
         arguments: dict[str, Any],
         rationale: str,
         notes: tuple[str, ...] = (),
-        origin: Literal["deterministic", "model"] = "deterministic",
+        origin: Literal["deterministic", "model", "memory", "skill"] = "deterministic",
         provenance: Literal[
-            "deterministic", "model_hypothesis_unverified", "validated_against_index"
+            "deterministic",
+            "model_hypothesis_unverified",
+            "validated_against_index",
+            "verified_episode",
+            "verified_skill",
         ] = "deterministic",
     ) -> Proposal:
         """Build a validated read-only proposal from already-checked arguments."""

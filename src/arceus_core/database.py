@@ -16,7 +16,9 @@ from arceus_core.config import ensure_data_dir
 from arceus_core.errors import DatabaseError, SchemaVersionError
 from arceus_core.schema import MIGRATIONS, SCHEMA_VERSION
 
-_EXPECTED_TABLES = frozenset({"roots", "scan_runs", "scan_errors", "entries"})
+_EXPECTED_TABLES = frozenset(
+    {"roots", "scan_runs", "scan_errors", "entries", "episodes", "skills", "skill_runs"}
+)
 
 
 def connect(db_path: str | Path, *, create: bool = True) -> sqlite3.Connection:

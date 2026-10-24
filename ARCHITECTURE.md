@@ -20,6 +20,7 @@ The initial interface is a Python CLI. A future desktop interface calls stable c
 - Model adapter: optional provider boundary for local inference, with typed requests/responses, offline enforcement, timeouts, cancellation, limits, and structured-output contracts.
 - Agent controller: proposes, validates, executes, and verifies bounded steps.
 - Memory/skill service: manages time-stamped, provenance-backed records with invalidation rules.
+- Budgeted router: chooses deterministic planning, skill reuse, memory reuse, model reasoning, clarification, or abstention under a frozen policy and per-task budget.
 - Evaluator: runs reproducible task sets and records metrics.
 
 ### 3. Persistence
@@ -64,11 +65,17 @@ Model outputs never bypass validation. Writes, installs, shell commands, moves, 
 
 `arceus_core.executor.ProposalExecutor` executes an already validated proposal through the same application-level validation for every origin (model, deterministic policy, fallback), and only the three allow-listed read-only operations (`search_files`, `graph_children`, `graph_ancestors`) against the existing search/graph services; `ask_clarification`/`abstain` are terminal and never execute. `arceus_core.verifier.verify_execution` independently and deterministically checks the original task, the validated action, and the actual tool result (search hits must satisfy the query; children must be direct; ancestors must match the path-prefix chain; content questions can never be certified from metadata); uncertain evidence is downgraded to `unverified`/`incomplete` instead of forced success. `arceus_core.workflow.TaskWorkflow` performs at most one validated read-only tool action per task and returns a structured, attributable `WorkflowResult` with explicit origin, rejection stage, and verification status. The controller keeps its state machine implicit in these callers; every stage is bounded (single action, timeouts, evidence limits).
 
-### 9. Memory and skills
+### 9. Memory and skills (implemented, Phase 6)
 
 A stored fact needs source/provenance, observed-at time, valid-time where relevant, confidence/status, and invalidation/update behavior. A skill needs preconditions, steps, expected effects, allowed tools, validation, version, and a test fixture. A previous success does not imply future safety.
 
-### 10. Desktop UI
+`arceus_core.memory.EpisodicMemory` stores task, action, origin, execution/verification outcome, evidence references, provenance, and config version; it deduplicates repeated runs, caps retention, ranks deterministic candidates (exact signature → category → token), and marks a record authoritative only when it is active and verified-successful. `confirm_evidence` re-checks the CURRENT index, so deleted, renamed, relocated, or missing-root evidence is rejected as stale instead of replayed. `arceus_core.skills.SkillRegistry` promotes a skill only after three distinct verified runs with zero failures, enforces a single-step read-only action sequence, an accepted task-signature input contract, typed preconditions, and revocable/disabled states. Reuse is optional and may only *replace an abstaining decision*; every outcome is recorded on the workflow result.
+
+### 10. Budgeted Cognitive Routing (implemented, Phase 7)
+
+`arceus_core.routing.BudgetedRouter` is a thin, deterministic policy over the existing services. It emits a frozen, typed `RoutingDecision` (strategy, reason, category, terminal flag, model eligibility, policy version, evidence/precondition references, *configured* budget estimate, *measured* resource snapshot, fallback reason) and executes nothing itself. Ordering is deterministic-first: supported tool action → clarification → verified skill → fresh authoritative memory → gated model → safe abstention. `RoutingBudget` is enforced, not declarative: `BudgetedInference` counts model calls and caps request timeouts; memory candidate counts are bounded; one action per task is structural; wall time over the configured bound is recorded. The model is refused when no backend is attached, when free RAM is below the floor, or when the per-task call budget is exhausted, and every refusal is attributed. Model proposals still cross the unchanged controller, permission, executor, and verifier boundaries; the router cannot widen the allow-list. Full design, frozen configuration, and the first (negative for model use) evaluation are in `reports/arceus_phase7_budgeted_cognitive_routing.md`.
+
+### 11. Desktop UI
 
 Only after the core APIs stabilize: evaluate Tauri + React + TypeScript with Rust adapters for native functionality. The UI should provide root selection, search results, provenance, permission controls, task traces, cancel, and confirmation for sensitive actions.
 

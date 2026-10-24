@@ -66,7 +66,7 @@ TaskStatus = Literal[
 ]
 
 VerificationStatus = Literal["verified", "unverified", "incomplete"]
-Origin = Literal["model", "deterministic"]
+Origin = Literal["model", "deterministic", "memory", "skill"]
 
 MAX_EVIDENCE_ITEMS = 50
 

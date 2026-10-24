@@ -39,6 +39,21 @@ checkpoints/
 *.pt
 *.pth
 
+# Local run artifacts and scratch diagnostics (not for the public release)
+cli_tags.json
+tags.json
+tags2.json
+tags_payload.json
+cli_tags_err.log
+tags_err.log
+eval_raw.json
+eval_raw_np256.json
+eval_runner*.log
+smoke.json
+smoke_err.log
+
+default.profraw
+
 # OS/editor noise
 .DS_Store
 Thumbs.db

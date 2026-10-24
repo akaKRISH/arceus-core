@@ -91,7 +91,7 @@
       "proposed_arguments": {
         "path": "media",
         "root_id": 1,
-        "absolute_path": "C:\\Users\\2k25c\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\media"
+        "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\media"
       },
       "origin": "deterministic",
       "fallback_used": false,
@@ -115,7 +115,7 @@
       "proposed_arguments": {
         "path": "encyclopedia/plants",
         "root_id": 1,
-        "absolute_path": "C:\\Users\\2k25c\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\encyclopedia\\plants"
+        "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\encyclopedia\\plants"
       },
       "origin": "deterministic",
       "fallback_used": false,
@@ -139,7 +139,7 @@
       "proposed_arguments": {
         "path": "encyclopedia/birds/crow.md",
         "root_id": 1,
-        "absolute_path": "C:\\Users\\2k25c\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\encyclopedia\\birds\\crow.md"
+        "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\encyclopedia\\birds\\crow.md"
       },
       "origin": "deterministic",
       "fallback_used": false,
@@ -229,7 +229,7 @@
       "proposed_arguments": {
         "path": "inbox",
         "root_id": 1,
-        "absolute_path": "C:\\Users\\2k25c\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\inbox"
+        "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\inbox"
       },
       "origin": "deterministic",
       "fallback_used": false,
@@ -275,7 +275,7 @@
       "proposed_arguments": {
         "path": "letters",
         "root_id": 1,
-        "absolute_path": "C:\\Users\\2k25c\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\letters"
+        "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\letters"
       },
       "origin": "deterministic",
       "fallback_used": false,
@@ -299,7 +299,7 @@
       "proposed_arguments": {
         "path": "encyclopedia/birds",
         "root_id": 1,
-        "absolute_path": "C:\\Users\\2k25c\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\encyclopedia\\birds"
+        "absolute_path": "<LOCAL_TMP>\\AppData\\Local\\Temp\\arceus-exec-bench-ppcusyt3\\work\\encyclopedia\\birds"
       },
       "origin": "deterministic",
       "fallback_used": false,

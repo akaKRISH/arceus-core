@@ -1,249 +1,356 @@
-# Project ARCEUS
+# ARCEUS
 
-**Status:** Milestone 1 — metadata-only filesystem index, reconciliation, and search — is implemented and tested on Windows 11. Structural graph-aware retrieval (roadmap Phase 3) is implemented and has now been evaluated on 5 development plus 10 held-out synthetic seeds (525 task instances) against both ordinary path search and a strong non-graph path-derived baseline. Graph-assisted retrieval and path-derived structural filtering both scored 525/525; ordinary path-only search scored 338/525 (64.4%). The graph therefore provides a real structural-access capability over search, but **no measured information advantage over string reconstruction from the same indexed paths**. This is a narrow synthetic result, not a general intelligence or novelty claim. Phase 4 has added an optional, offline-only local inference boundary with a deterministic fake test backend and a frozen synthetic model-reasoning task suite; **no model backend has been installed, downloaded, or run by ARCEUS**. There is no embedding store or GUI.
+> **A local-first cognitive agent research framework that only believes what it can verify —
+> and says so when it can't.**
 
-ARCEUS investigates whether a local-first agent can improve task success per unit of compute by combining a compact local model with a structured representation of its environment, source-grounded retrieval, persistent memory, verified reusable skills, bounded planning, and outcome verification. None of that broader claim has been evaluated yet. This repository currently contains a deterministic, offline core plus a reproducible evaluation harness.
+ARCEUS investigates how far a small local language model and a deterministic, evidence-grounded
+agent stack can go when every capability is bounded by explicit budgets, permissions, and an
+independent verifier. It is a research framework for studying **verified task success per unit
+of compute**, not a product, and it reports its negative results.
 
-## What works today
+![Python](https://img.shields.io/badge/python-3.11%2B-blue)
+![Tests](https://img.shields.io/badge/tests-428%20passed%2C%202%20skipped-brightgreen)
+![Ruff](https://img.shields.io/badge/lint-ruff%20clean-informational)
+![Platform](https://img.shields.io/badge/verified%20on-Windows%2011-lightgrey)
+![Runtime deps](https://img.shields.io/badge/runtime%20deps-std%20lib%20only-success)
+![License](https://img.shields.io/badge/license-none%20chosen-red)
 
-- Register explicitly chosen directories; nothing outside a registered root is ever scanned.
-- Scan file **metadata only** into SQLite: relative path, name, extension, type, size, modification time, first/last observation, scan coverage.
-- Search filenames and root-relative paths with case-insensitive, Unicode-safe matching and a documented ranking.
-- Incrementally rescan; additions, renames (as delete + add), modifications, and deletions reconcile without silently erasing index rows.
-- Survive unreadable directories: partial scans are marked `partial`, and unobserved entries are retained rather than falsely deleted.
-- Skip symbolic links and Windows junctions; never follow them.
-- Query structural relationships: direct children, ancestor chains with observed-vs-inferred provenance, bounded subtree listings, per-root counts.
-- Report health (`status`), errors, stale/partial scans, and interrupted runs.
-- Emit JSON for machine consumption, including UTF-8 paths on Windows.
-- Optional local inference boundary with typed requests/responses, model identity, offline enforcement, timeouts, cancellation, input/output limits, and structured-output contracts. Only a deterministic test backend is included; filesystem features do not depend on inference.
-- **Cognitive Controller v0** (`arceus_core.controller`): a strictly read-only proposal engine. `CognitiveController(conn, inference=None).decide(task)` returns one validated `Proposal` (search_files, graph_children, graph_ancestors, ask_clarification, or abstain). There is no execute method; invalid, unsafe, or unavailable model output falls back to a deterministic index-aware policy. Reuses the existing search/graph/roots services; path proposals must resolve inside registered roots.
-- **Bounded task workflow (Phase 5)** (`arceus_core.executor`/`verifier`/`workflow`): `TaskWorkflow.run(task)` takes one user task through proposal → re-validation → at most one allow-listed read-only tool execution → evidence collection → independent deterministic verification, returning an attributable `WorkflowResult` (origin, rejection stage, verification status, task completion). Content questions, unindexed paths, and unsafe requests terminate as explicit abstentions; model failures fall back with the stage recorded, never as model successes.
+**Local-first, bounded, verified.** Indexing, search, routing, memory, and inference all run on
+one machine. File contents never leave their location, model calls require a free-RAM safety
+gate, and no action is called successful until a deterministic verifier says so.
 
-## Install
+---
 
-Python **3.11+** is required; the reference environment used 3.13 because 3.12 was not installed. The package uses only the standard library at runtime.
+## Why ARCEUS?
 
-Windows PowerShell:
+Autonomous agent workflows tend to be expensive, hard to verify, and good at producing
+unsupported claims. ARCEUS rebuilds the agent loop around three questions:
 
-```powershell
-py -3.13 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -e ".[dev]"
-python -m pytest
+1. **What did the evidence actually show?** — retrieval is source-grounded metadata over an
+   explicitly registered index, and every task must cite its evidence.
+2. **What may this step do?** — execution is proposal → re-validation → at most one
+   allow-listed read-only action → independent verification. Model output never grants
+   authorization and can never widen scope.
+3. **What did it cost, and was it worth it?** — the BCR router chooses between deterministic
+   planning, provenance-checked memory, verified-skill reuse, one bounded local-model call,
+   clarification, and safe abstention — and abstention is a *correct* answer when the evidence
+   cannot support correctness.
+
+The frozen evaluations to date find that the honest abstention usually *wins*: a memory+skills
+stack with **zero** model calls has outscored the model-using router on both measured suites.
+
+---
+
+## Design principles
+
+| Principle | Where it lives |
+|---|---|
+| Deterministic-first | Router ordering: tool proposal → clarification → verified skill → fresh memory → gated model → safe abstention |
+| Local-first inference | Loopback-only Ollama adapter; no cloud, no implicit downloads; offline capability enforced in code |
+| Bounded resources | Per-task `RoutingBudget` (1 model call, time/token caps) and a ≥2 GiB free-RAM live-inference gate |
+| Permission-bounded execution | Proposals re-validated against a typed contract; paths must resolve inside registered roots |
+| Independent verification | `verifier.py` checks postconditions deterministically; no executed-but-unverified "success" |
+| Provenance-aware memory & skills | Episodes carry source provenance; stale evidence is rejected; skills promote only after 3 distinct verified runs |
+| Fail-closed abstention | Unknown/missing abstention reasons coerce to terminal; refused skills are never escalated around |
+| Reproducible evaluation | Frozen, pre-registered suites with pinned digests; ground truth written independently of all system output |
+
+---
+
+## Architecture
+
+```mermaid
+flowchart TB
+    subgraph Environment[Local environment]
+        FS[(Registered roots<br/>metadata-only)]
+    end
+
+    Task[Task instruction] --> Router
+
+    subgraph Routing[BudgetedRouter - src/arceus_core/routing.py]
+        Router{Route with<br/>bcr-policy-v1 / v2}
+        Budget[RoutingBudget<br/>1 model call, time + token caps<br/>free-RAM resource gate]
+    end
+
+    Router --> Controller
+    Router --> Memory
+    Router --> Skills
+
+    subgraph Deterministic[Deterministic layer]
+        Controller[CognitiveController<br/>read-only proposal engine]
+        Search[search.py<br/>ranked name/path search]
+        Graph[graph.py<br/>children / ancestors / tree]
+        Scanner[scanner.py + reconcile.py<br/>metadata-only index]
+    end
+
+    subgraph Reuse[Provenance-checked reuse]
+        Memory[memory.py<br/>episodes; stale evidence rejected]
+        Skills[skills.py<br/>3-run promotion; input contracts]
+    end
+
+    subgraph Inference[Optional local model]
+        LI[LocalInference boundary<br/>offline enforcement]
+        Ollama[Ollama adapter<br/>loopback 127.0.0.1 only]
+        Qwen[qwen3.5:4b at temp 0]
+    end
+
+    Controller --> Index[(SQLite index<br/>scanner + search + graph)]
+    Search --> Index
+    Graph --> Index
+    Scanner --> Index
+    FS --> Scanner
+
+    Router -->|one bounded call<br/>only on recoverable gaps v2| LI --> Ollama --> Qwen
+
+    Router --> WorkflowB[[TaskWorkflow]]
+
+    subgraph Execution[Execution and verification]
+        WorkflowB[workflow.py<br/>propose - validate - execute - verify]
+        Executor[executor.py<br/>allow-listed read-only actions]
+        Verifier[verifier.py<br/>independent postconditions]
+    end
+
+    WorkflowB --> Executor --> Verifier --> Result[Attributable WorkflowResult<br/>origin / rejection stage /<br/>verification status / fallback]
+
+    Result -.->|episodes record provenance| Memory
 ```
 
-Linux/macOS:
+Everything above the model box runs with **no** model installed. Importing ARCEUS never
+starts a model process or opens a network connection. When a live model is unavailable or the
+resource gate trips, tasks resolve as safely attributed abstentions — never as implied model
+successes.
+
+---
+
+## Capability matrix
+
+| Capability | Status | Evidence |
+|---|---|---|
+| Metadata-only index, reconciliation, roots | Stable | Phase 1 suite; benchmark artifacts |
+| Ranked name/path search (no FTS) | Stable | Phase 1 |
+| Structural graph queries | Stable | `graph-retrieval-v2` (525 tasks) |
+| Offline inference boundary + Ollama adapter | Tested on Windows | `qwen3.5:4b` smoke via `LocalInference` |
+| Read-only cognitive controller | Stable | `controller-action-v0` 12/12 deterministic |
+| Bounded execute → verify workflow | Stable | `executor-workflow-v0` 12/12 deterministic, 10/12 model arm |
+| Episodic memory (provenance, staleness) | Stable | `memory-lifecycle-v1` 9/9, 7/7 stale rejections |
+| Verified-skill registry | Stable | `skills-servable-v1` 11/12 vs 5/12 baseline |
+| Budgeted routing `bcr-policy-v1` | Frozen (negative) | `bcr-routing-v1`: 10/14 vs 14/14 no-model |
+| Recoverable-abstention routing `bcr-policy-v2` | Policy-tested; live arm blocked | `bcr-routing-v2`: 14/16 both splits, 0 terminal escalations |
+| Live-model end-to-end for `bcr-routing-v2` | **Not run** (free RAM < 2 GiB both attempts) | — |
+| Content-aware retrieval / embeddings | Not implemented | out of scope so far |
+| Linux / macOS execution | Not verified | Windows is the verified platform |
+
+Every claim above links to a frozen suite in `evals/` and a report or JSON artifact in `reports/`.
+
+---
+
+## Quick start
+
+Requires Python **3.11+** (verified on 3.13/3.14 on Windows). Runtime dependencies are std-lib
+only; `pip` installs just the test/lint tooling.
+
+### Windows PowerShell
+
+```powershell
+git clone https://github.com/akaKRISH/arceus-core.git
+cd arceus-core
+py -3.11 -m venv .venv          # or any 3.11+ interpreter, e.g. py -3.13
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e ".[dev]"
+python -m pytest                # full deterministic suite, no model needed
+python -m ruff check src tests evals experiments scripts
+python -m ruff format --check src tests evals experiments scripts
+```
+
+If PowerShell blocks script activation for that terminal only:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+### Linux / macOS
 
 ```bash
+git clone https://github.com/akaKRISH/arceus-core.git
+cd arceus-core
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[dev]"
 python -m pytest
 ```
 
-If PowerShell blocks activation, use `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` for that terminal only.
+> Linux/macOS are not yet verified on real hardware — see
+> [Limitations](#research-findings-and-limitations).
 
-## Use
-
-The database defaults to the per-user application-data directory:
-
-| Platform | Default database |
-|---|---|
-| Windows | `%LOCALAPPDATA%\ARCEUS\arceus.sqlite3` |
-| macOS | `~/Library/Application Support/ARCEUS/arceus.sqlite3` |
-| Linux | `$XDG_DATA_HOME/arceus/arceus.sqlite3` or `~/.local/share/arceus/arceus.sqlite3` |
-
-Override it with `--db PATH` (accepted before or after the subcommand) or `ARCEUS_DATA_DIR`. The database is never placed inside an indexed root by default, and database files are excluded even if a root contains them.
+### Try the CLI deterministically
 
 ```powershell
-# Register one explicit directory (must already exist)
-arceus roots add "C:\Users\me\Projects\demo" --label demo
-
-# Scan every registered root
+arceus roots add "$PWD\demo-workspace" --label demo   # explicit, never a drive scan
 arceus scan
-
-# Or scan one root only
-arceus scan --root 1
-
-# Search by filename or relative path
-arceus search "report"
-arceus search "main.py" --ext py --limit 5
-arceus search "src" --type dir --json
-
-# Inspect a result's provenance and ancestry
-arceus show "C:\Users\me\Projects\demo\src\main.py"
-
-# Structural queries
-arceus graph children "C:\Users\me\Projects\demo"
-arceus graph ancestors "C:\Users\me\Projects\demo\src\main.py"
-arceus graph tree "C:\Users\me\Projects\demo" --depth 2
-arceus graph stats
-
-# Health and maintenance
+arceus search "report" --limit 5
+arceus graph tree "$PWD\demo-workspace" --depth 2
 arceus status
-arceus status --json
-arceus roots list
-arceus roots remove 1 --yes   # deletes index rows only; original files untouched
 ```
 
-`arceus index scan` is an alias for `arceus scan`. All commands support `--help`. Global options are `--db PATH` and `--json`; use `--` before a literal argument that begins with `--`.
+All commands support `--help`, `--json`, and `--db PATH`. Exit codes: 0 success, 1 operational,
+2 usage.
 
-### Evaluate graph retrieval
-
-The deterministic benchmark generates its own temporary fixture and index; it never indexes your files:
+### Run the frozen benchmarks
 
 ```powershell
-python -m evals.run_benchmark
-python -m evals.run_benchmark --suite development --repeats 1
-python -m evals.run_benchmark --suite heldout
-python -m evals.run_benchmark --help
+python -m evals.run_benchmark                       # graph-retrieval-v2 (deterministic)
+python scripts/run_controller_benchmark.py          # controller-action-v0, deterministic arm
+python scripts/run_executor_benchmark.py            # executor-workflow-v0, deterministic arm
+python scripts/run_bcr_v2_benchmark.py --no-model   # all four bcr-routing-v2 policy arms
 ```
 
-The default command runs the complete frozen experiment: 5 development seeds and 10 held-out seeds, 35 tasks per seed, 3 repetitions. Results are written to `reports/graph_retrieval_evaluation_v2.json` and summarized on stdout.
+None of these touch your files: each builds its own temporary synthetic fixture and database.
 
-### Evaluate the cognitive controller
+---
 
-A separate frozen 12-task controller benchmark (`controller-action-v0`) evaluates the deterministic policy and, optionally, a real local model against identical inputs. Ground truth never reaches the controller:
+## Optional local LLM setup
+
+All deterministic phases above need **no model**. To reproduce the optional model arms:
+
+1. Install [Ollama](https://ollama.com) and `ollama pull qwen3.5:4b` yourself
+   (~3.4 GB — ARCEUS never downloads weights).
+2. Ensure the model is reachable at `127.0.0.1:11434` (loopback only).
+3. Check RAM: the live gate refuses inference unless **≥2 GiB (2048 MB)** of physical memory is
+   free; a single `qwen3.5:4b` call at `num_ctx=2048` / `num_predict=256`, temperature 0, takes
+   ≈2 s. Sequential only — one call per task, per the `RoutingBudget`.
 
 ```powershell
-python scripts/run_controller_benchmark.py                 # deterministic arm
-python scripts/run_controller_benchmark.py --model         # adds the Qwen arm via LocalInference/Ollama
+python scripts/run_bcr_v2_benchmark.py              # live arms; prints the gate verdict
+python scripts/run_controller_benchmark.py --model
+python scripts/run_executor_benchmark.py --use-model
 ```
 
-Artifacts: `reports/controller-action-v0_deterministic.json` (12/12, zero unsafe proposals) and `reports/controller-action-v0_model.json` (12/12 end-to-end, but only 1/12 proposals were model-generated; the deterministic fallback carried the rest). Task notes record why each model proposal was rejected.
+Known behavior: the 4B model loses to the deterministic planner on the frozen planner suites
+(1/12 vs 2/12 on `model-reasoning-v0`; the model path produced usable proposals for only 1/12
+controller tasks without fallback). Treat model arms as research instruments, not features.
 
-### Evaluate the end-to-end task workflow
+---
 
-A separate frozen 12-task benchmark (`executor-workflow-v0`) scores the complete proposal → validation → execution → verification pipeline with explicit model/fallback attribution. The deterministic arm passes 12/12 (8 executed, all independently verified, zero unsafe actions); the real-model arm (qwen3.5:4b) scores 10/12 with all 12 proposals model-generated, zero fallback, and its 2 wrong actions caught by the independent verifier:
+## Testing and reproducibility
 
-```powershell
-python scripts/run_executor_benchmark.py                    # deterministic arm
-python scripts/run_executor_benchmark.py --use-model       # adds the Qwen arm via LocalInference/Ollama
+| Layer | Command | What it proves |
+|---|---|---|
+| Unit + integration | `python -m pytest` | 428 passed, 2 skipped (Windows symlink-creation only); no model load |
+| Lint | `python -m ruff check src tests evals experiments scripts` | clean |
+| Format | `python -m ruff format --check src tests evals experiments scripts` | clean |
+| Frozen deterministic benchmarks | `python -m evals.run_benchmark`, `scripts/run_*.py` | pinned suites, pinned seeds/fixtures |
+| Pre-registered suites | `reports/bcr-routing-v2_preregistration.md` | frozen before measurement, digest-pinned |
+
+Unit tests use mocked inference only. Frozen benchmark suites have versioned task definitions
+with ground truth written independently of system output. Live-model experiments are separate,
+documented, and gated.
+
+Key reading:
+
+- [SPRINT_STATUS.md](SPRINT_STATUS.md) — current phase tracker (source of truth for status)
+- [reports/arceus_phase7_budgeted_cognitive_routing.md](reports/arceus_phase7_budgeted_cognitive_routing.md)
+- [reports/arceus_phase7_1_recoverable_abstention.md](reports/arceus_phase7_1_recoverable_abstention.md)
+- [reports/graph_retrieval_evaluation_v2.md](reports/graph_retrieval_evaluation_v2.md)
+- [ARCHITECTURE.md](ARCHITECTURE.md) · [EXPERIMENT_PROTOCOL.md](EXPERIMENT_PROTOCOL.md) · [DECISIONS.md](DECISIONS.md)
+
+---
+
+## Research findings and limitations
+
+Findings are stated exactly as the frozen artifacts support them. Numbers are from
+fixed synthetic suites on one Windows machine; they are not population claims.
+
+### What the frozen evaluations measured
+
+| Suite | Result | Verdict |
+|---|---|---|
+| `bcr-routing-v1` (6 arms, 14+14 tasks) | no-model memory+skills **14/14** both splits; BCR 10/14 (4 calls); model-first 9/14 (5 calls); skills 14/14; deterministic-only 13/14 | **Reject** model escalation on any abstention: every model call replaced a correct abstention |
+| `bcr-routing-v2` (4 arms, 16+16 tasks) | v2 policy permits 3 escalations/split vs v1's 7/split, **0 terminal**; policy stack 14/16 both splits = no-model baseline | Typed gate removes terminal escalation; **live-model end-to-end untested** (gate blocked: 816 MB free < 2 GiB) |
+| `executor-workflow-v0` (12 tasks) | deterministic 12/12; real-model 10/12, both wrong proposals caught by the independent verifier | Verifier catches model errors; 0 fallback inflation |
+| `memory-lifecycle-v1` | 9/9, 7/7 stale detections, 0 stale adoptions | Provenance staleness works; positive adoption still unexercised end-to-end |
+| `skills-servable-v1` | skills/memory+skills 11/12 vs baseline 5/12; 0 incorrect adoptions | Verified-skill reuse is the one measured capability gain over deterministic-only |
+| `graph-retrieval-v2` (525 tasks) | graph 525/525 ≡ path-derived control 525/525 vs name/path search 338/525 (64.4%) | Structural access is real; **no unique information advantage** over string reconstruction on these fixtures |
+| `model-reasoning-v0` (12 tasks) | qwen3.5:4b 1/12 vs 2/12 deterministic | Small local model loses to the planner under strict output contracts |
+
+### Honest limitations
+
+- **The router has not beaten the strongest no-model baseline on any suite so far.**
+  On `bcr-routing-v1` the model-using policy scored strictly worse. The Phase 7.1 typed gate is
+  the *proposed fix*; its end-to-end benefit is untested because the live-model arm was blocked
+  by the memory-safety gate on both attempts.
+- **Memory's positive adoption benefit is unexercised.** Suites so far observe only correct
+  stale-evidence rejection; no task's ground truth is a beneficial memory adoption.
+- **Small synthetic suites.** 12–32 tasks per suite, 525 graph instances, benchmark-authored
+  skill contracts. One machine, one model, one metric family.
+- **Live-model work is resource-dependent.** Hosts often run near memory limits; when the
+  ≥2 GiB gate trips, model arms are recorded as **blocked**, not silently skipped, and never
+  replayed from cache. Held-out splits are never used for tuning after inspection.
+- **Windows-only verification.** Path/filename case semantics are host-reconciled; POSIX runs
+  are designed for but not yet executed.
+- **Metadata only.** No content extraction, embeddings, or FTS; content questions terminate as
+  abstentions by design.
+- **No license has been selected yet.** Copyright is retained; see below.
+
+---
+
+## Repository map
+
+```
+src/arceus_core/        # the implementation (std-lib only)
+  scanner.py, search.py, graph.py        index + retrieval
+  controller.py                          read-only proposal engine
+  executor.py, verifier.py, workflow.py  bounded execution + verification
+  memory.py, skills.py                   provenance-checked reuse
+  routing.py, abstention.py              BCR policies + typed abstention taxonomy
+  inference.py, inference_ollama.py      offline inference boundary
+  cli.py, config.py, database.py, schema.py, roots.py ... infrastructure
+evals/                  # frozen benchmark suites + ground truth (independent of src)
+scripts/                # benchmark runners
+tests/                  # 430 tests (428 pass, 2 skip on Windows); mocked inference only
+reports/                # research reports + frozen per-task result artifacts
+experiments/bench_index.py   # synthetic index performance benchmark
 ```
 
-Artifacts: `reports/executor-workflow-v0_deterministic.json` (12/12) and `reports/executor-workflow-v0_model.json` (10/12, 47.5 s). A successful fallback never counts toward the model's score; full guarantees and limitations are in `reports/arceus_phase5_execution_verification.md`.
+---
 
-### Exit codes
+## Roadmap
 
-| Code | Meaning |
-|---|---|
-| 0 | Command completed (for `search`, zero matches is still success) |
-| 1 | Operational error: unknown root, invalid path, database problem, failed scan |
-| 2 | Usage error |
+Completed and tracked in [SPRINT_STATUS.md](SPRINT_STATUS.md):
 
-## What is stored, and what is not
+- ✅ Metadata index, reconciliation, search, structural graph (Phases 1–3)
+- ✅ Offline inference boundary + loopback Ollama adapter (Phase 3.5)
+- ✅ Read-only controller with re-validated model proposals (Phase 4 + 4.1)
+- ✅ Bounded execute → verify workflow (Phase 5)
+- ✅ Episodic memory + verified skills (Phases 6, 6.1)
+- ✅ BCR v1 (frozen evaluation: model escalation on any abstention rejected) (Phase 7)
+- ✅ Typed abstention taxonomy + recoverable-only escalation policy, pre-registered and
+  policy-tested (Phase 7.1)
 
-Stored in SQLite under `roots`, `scan_runs`, `scan_errors`, and `entries`:
+In progress / planned:
 
-- the registered root path and its case-normalized key;
-- root-relative paths with forward slashes, names, extensions, file-vs-directory type;
-- size and modification time, first/last scan run IDs, observation timestamps;
-- scan status, coverage-relevant errors, counts, and skipped-symlink counts.
+- ▶ Live-model run of the frozen `bcr-routing-v2` arm (blocked on host RAM; the recorded
+  command must run unchanged once ≥2 GiB is free)
+- ▶ A suite whose ground truth includes beneficial memory adoptions and model-solvable gaps
+- ▶ Latency/cost instrumentation (per-call inference time, token counts, VRAM)
+- ▶ POSIX verification, CI, cross-platform case-semantics tests
 
-**Never stored:** file contents, content hashes, embeddings, previews, or copies of indexed files. Tests assert that a unique marker written into a fixture file does not appear in the database bytes.
+---
 
-An entry that disappears is marked `missing`, not deleted. This preserves history and makes stale results explainable; `search --include-missing` exposes them. Removing a root explicitly deletes only its index rows.
+## Contributing, security, and license
 
-## Safety behavior
+- Contributing: see [CONTRIBUTING.md](CONTRIBUTING.md) — one behavior per change, temp-dir
+  fixtures, full test suite green, no new runtime dependency without a written justification.
+- Security & privacy posture: see [SECURITY_PRIVACY.md](SECURITY_PRIVACY.md). In short:
+  read-only by default, registered roots only, injection content treated as inert data,
+  parameterized SQL, no network transmission. The maintainer does not currently list a private
+  vulnerability-receiving address; use a private GitHub security advisory if one is needed.
+- Changelog of research milestones: [CHANGELOG.md](CHANGELOG.md).
+- **License: none chosen yet.** A license must be selected before others may reuse this code;
+  until then, default copyright applies.
 
-- Only explicitly registered roots are scanned; there is no default home-directory or drive scan.
-- Directory symlinks and junctions are skipped and never traversed.
-- A directory that could not be enumerated is never treated as empty. Its previously indexed children stay `present` because the scan has no evidence of removal.
-- Descendants of an observed-removed directory are marked `missing` only when the removal itself was observed under a fully enumerated parent.
-- Scans are batched in transactions; a crash or Ctrl+C finishes the run as `interrupted`, and the next scan reports it.
-- `--max-entries` provides an explicit guard for unexpectedly large roots.
-- SQL is parameterized; foreign keys, WAL journaling, and a busy timeout are enabled.
-- Nothing is transmitted over the network.
+---
 
-## Architecture
+ARCEUS is a research record as much as a codebase: the interesting artifact is not that it
+routes tasks, but that it keeps receipts — and so far, the receipts favor doing less.
 
-```text
-src/arceus_core/
-├── cli.py          argparse CLI; formatting and dispatch only
-├── config.py       data-directory and database-path resolution
-├── database.py     SQLite connection, migrations, integrity checks
-├── schema.py       versioned schema (PRAGMA user_version)
-├── paths.py        platform-aware path/key normalization
-├── models.py       typed records
-├── roots.py        root registry and lookup
-├── scanner.py      metadata-only traversal, batching, scan runs
-├── reconcile.py    coverage-based conservative reconciliation
-├── search.py       ranked name/path search with explanations
-├── graph.py        children, ancestry, subtree, structural stats
-├── inference.py    optional offline local-inference boundary and fake test backend
-├── inference_ollama.py  loopback-only Ollama HTTP adapter (127.0.0.1:11434)
-├── controller.py   read-only cognitive controller v0 (proposal engine)
-├── status.py       health aggregation
-└── errors.py       explicit exception hierarchy
-```
-
-```text
-evals/
-├── config.py            frozen seed split and benchmark versions
-├── fixture.py           deterministic synthetic fixture and ground-truth model
-├── tasks.py             versioned 35-task suite and ground-truth-free specs
-├── retrieval.py         shared result type and retriever base
-├── index_view.py        read-only scalar metadata view
-├── path_derived.py      non-graph string-filtering structural baseline
-├── retrievers.py        path-only, graph-assisted, and registry
-├── metrics.py           task scoring, macro metrics, category summaries
-├── harness.py           isolated multi-seed orchestration and JSON artifact
-├── model_tasks.py       frozen synthetic model-reasoning task suite
-├── controller_tasks.py  frozen 12-task controller benchmark (controller-action-v0)
-└── run_benchmark.py     `python -m evals.run_benchmark` CLI
-```
-
-Tests live in `tests/` and use temporary directories and databases exclusively. `experiments/bench_index.py` builds a synthetic tree, scans it, and reports timings, database size, and Python-heap peak. The evaluation harness builds only synthetic temporary fixtures and cleans them up after each run.
-
-## Verified results
-
-Environment: Windows 11 Home (10.0.26300), Python 3.13.15, Git 2.56.0, 12 logical CPUs, 16,013 MB RAM, NVIDIA RTX 3050 6 GB (driver 591.91), 9.3 GB free disk. Python 3.12 was not installed; 3.13 was used and `requires-python` is `>=3.11`.
-
-- Tests: **142 passed, 2 skipped** (`python -m pytest`). The two skips are symlink-creation tests that this Windows user cannot run without developer mode; Windows junction skipping is verified end-to-end with a real junction, and the link detector covers both link types.
-- Lint: `ruff check src tests evals experiments` passes. Formatting: `ruff format --check src tests evals experiments` passes.
-- Measured on synthetic fixtures (50 query repetitions each; full details in [reports/2026-10-23_filesystem_baseline.md](reports/2026-10-23_filesystem_baseline.md)):
-  - 2,000 files / 40 dirs: first scan 0.126 s (~15,900 files/s), database 976 KiB, search median 0.5–1.3 ms.
-  - 20,000 files / 200 dirs: first scan 1.746 s (~11,450 files/s), database 8.97 MiB (~466 bytes/entry), search median 12–23 ms.
-  - Idempotent rescan and 10% deletion reconciliation produced the exact expected `missing` counts, with indices preserved.
-- Graph evaluation (`graph-retrieval-v2`, 5 development + 10 held-out seeds, 525 task instances, 3 timed repetitions): **path-only 338/525 (64.4%), target F1 0.8215, evidence F1 0.5312; path-derived 525/525; graph-assisted 525/525, target/evidence F1 1.0; zero regressions.** On held-out seeds path-only scored 227/350 (64.9%) while both structural systems scored 350/350. The graph tied the path-derived baseline on every task, so the measured gain over search is structural access, not unique graph information. Full method, failure examples, and limits are in [reports/graph_retrieval_evaluation_v2.md](reports/graph_retrieval_evaluation_v2.md); raw results are in [reports/graph_retrieval_evaluation_v2.json](reports/graph_retrieval_evaluation_v2.json). The earlier single-seed experiment remains in [reports/graph_retrieval_evaluation.md](reports/graph_retrieval_evaluation.md).
-
-These are single-machine measurements on fixed synthetic suites. The graph comparison gives structured relationship inputs to the graph system and natural query text to the path baseline; it demonstrates a capability difference on structural tasks, not improved search ranking or general navigation. The path-derived control used the same scalar metadata and reconstructed structure from strings, so the graph's lack of an advantage over it is a substantive negative result. Linux and macOS have not been executed.
-
-## Known limitations
-
-- **Windows-only verification.** The code uses `pathlib` abstraction and platform-specific keys, but no CI has run on Linux or macOS.
-- **Metadata only.** Search cannot answer content questions; no text extraction or embeddings exist.
-- **Renames are delete + add** unless the relative path is unchanged. File identity (inode/file ID) is deliberately not used as a cross-platform key.
-- **Case semantics:** entry keys are case-folded on Windows and case-preserving on POSIX, chosen from the host at scan time. A database moved between platform families needs a rescan.
-- **Substring search is a full scan.** There is no FTS index; measured 12–23 ms at 20k entries, but this grows linearly. FTS is deferred until a measured task needs it.
-- **Symlinks/junctions are unconditionally skipped.** There is no opt-in to follow them.
-- **Single-writer assumption.** WAL and a busy timeout are enabled, but concurrent scan/write behavior is untested.
-- **Interrupted scans are reported, not resumed.** The next scan re-observes the root.
-- **No capable model planner yet.** A loopback-only Ollama adapter exists (`inference_ollama.py`), and `qwen3.5:4b` was invoked through `LocalInference` (smoke test passed; frozen `model-reasoning-v0` scored 1/12 vs the 2/12 deterministic baseline, with all failures at the strict JSON-contract boundary). In the controller benchmark the model path was accepted for only 1 of 12 tasks; the deterministic fallback carried the rest. No model weights were downloaded by ARCEUS.
-- **Graph evaluation is narrow.** 525 task instances from 15 synthetic seeds, one Windows machine, and a shared synthetic task grammar. It is not a real-world or population-level benchmark and does not establish generalization. The graph and path-derived systems are informationally equivalent on these tree-shaped fixtures; no inconsistent parent rows or real filesystem anomalies were tested.
-
-## Research status
-
-The long-term hypothesis (Budgeted Cognitive Routing over environment structure, memory, verified skills, and selective model reasoning) remains untested. The Phase 3.1 evaluation supports a narrow capability claim: structural access answers children, subtree, ancestor, and directory-scoped extension tasks that path-only search cannot express, and the gap persisted on 10 held-out seeds. It rejects the stronger claim that the graph API provides unique retrieval information: a non-graph path-derived baseline matched it on all 525 task instances. Phase 4 has prepared a typed offline inference boundary and a 12-task synthetic reasoning suite with a fixed deterministic baseline (2/12), but no real model has been evaluated. Nothing here supports claims about search ranking, real-world generalization, model-assisted behavior, memory, skills, or routing.
-
-See `RESEARCH_PLAN.md`, `LITERATURE_REVIEW.md`, and `EXPERIMENT_PROTOCOL.md` for the designed experiments. See `DECISIONS.md` for architectural decisions and `reports/graph_retrieval_evaluation_v2.md` for the actual Phase 3.1 experiment.
-
-## Next milestone
-
-The controller v0 and both frozen evaluations now exist with real model measurements. The next step is improving prompt/contract guidance (or the model) until model-generated proposals stop failing the strict validation boundary, then re-measuring `model-reasoning-v0` and `controller-action-v0` without changing frozen task definitions. Keep the deterministic controller and `path_derived` as permanent controls, and do not present model-assisted behavior as an improvement until model-generated proposals themselves match the fallback.
-
-## Documentation map
-
-1. `START_HERE.md` — human setup guide and phase gates
-2. `PRODUCT_VISION.md` — scope and users
-3. `ARCHITECTURE.md` — layered design and intended boundaries
-4. `IMPLEMENTATION_ROADMAP.md` — phase gates
-5. `AGENT_RULES.md` — operating rules for coding agents
-6. `FIRST_SPRINT_CHECKLIST.md` — verified milestone checklist
-7. `reports/2026-10-23_filesystem_baseline.md` — index measurements
-8. `reports/graph_retrieval_evaluation_v2.md` — Phase 3.1 held-out experiment and limits
-9. `reports/graph_retrieval_evaluation.md` — earlier single-seed Phase 3 experiment
-10. `reports/2026-10-23_local_model_selection.md` — local runtime/model candidate report
-11. `reports/2026-10-23_model_reasoning_tasks.md` — frozen model-reasoning task design
-12. `reports/2026-10-23_qwen_validation_report.md` — real-model validation through `LocalInference`
-13. `REPOSITORY_STRUCTURE.md` — current layout
+For orientation read [START_HERE.md](START_HERE.md) and [PRODUCT_VISION.md](PRODUCT_VISION.md);
+for the actual experiments, go to [reports/](reports/).

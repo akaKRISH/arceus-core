@@ -11,11 +11,12 @@ from arceus_core.database import (
     schema_version,
 )
 from arceus_core.errors import DatabaseError, SchemaVersionError
+from arceus_core.schema import SCHEMA_VERSION
 
 
 def test_migration_creates_expected_schema(db_path: Path) -> None:
     with open_database(db_path) as conn:
-        assert schema_version(conn) == 1
+        assert schema_version(conn) == SCHEMA_VERSION
         tables = {
             str(row[0])
             for row in conn.execute(
@@ -23,13 +24,15 @@ def test_migration_creates_expected_schema(db_path: Path) -> None:
             )
         }
     assert {"roots", "scan_runs", "scan_errors", "entries"} <= tables
+    # Phase 6 additions arrive through the same versioned migration path.
+    assert {"episodes", "skills", "skill_runs"} <= tables
 
 
 def test_schema_survives_reopen(db_path: Path) -> None:
     with open_database(db_path) as conn:
-        assert schema_version(conn) == 1
+        assert schema_version(conn) == SCHEMA_VERSION
     with open_database(db_path) as conn:
-        assert schema_version(conn) == 1
+        assert schema_version(conn) == SCHEMA_VERSION
 
 
 def test_newer_schema_is_rejected(db_path: Path) -> None:

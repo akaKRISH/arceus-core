@@ -72,6 +72,10 @@ class InferenceBackendError(InferenceError):
     """A backend raised an unexpected error while serving a request."""
 
 
+class MemoryStoreError(ArceusError):
+    """Invalid episodic-memory or skill-registry record/operation."""
+
+
 class ControllerError(ArceusError):
     """Base class for cognitive-controller failures."""
 

@@ -116,3 +116,53 @@ success, failures and unsupported tasks, the frozen configuration, and the exact
 artifact. A 100% score on a finite synthetic suite is never proof of generalization.
 Distinguish a graph-vs-path-only capability result from a graph-vs-path-derived
 information result; they answer different questions.
+
+## Phase 7 — frozen Budgeted Cognitive Routing protocol
+
+### Frozen configuration
+- Benchmark `bcr-routing-v1`; policy `bcr-policy-v1`; configuration string
+  `bcr-policy-v1; fixture-v2; scoring=bcr-outcome-v1.1`; frozen 2026-10-24.
+- 14 development + 14 held-out tasks with disjoint wording, fixture paths, skill ids,
+  and accepted task signatures. The held-out split is run once before any policy edit.
+- Six arms share tasks, fixtures, seeds, budget, model configuration, and scoring; only
+  the granted capabilities differ: deterministic-only, memory-first, skill-first,
+  model-first, full BCR, memory+skills without a model.
+- Budget: one model call, 60 s inference cap, 256 output tokens, one execution action,
+  5 memory and 5 skill candidates, 120 s workflow bound, 750 MB free-RAM floor.
+
+### Controls and attribution
+- Ground truth is authored independently of production planner/router/verifier output; a
+  pinned sha256 digest and import-isolation tests enforce it.
+- Capability-limited outcomes (strategy unreachable in that arm) are reported separately
+  from router mislabels. A mislabel is a failing task whose strategy the arm *could* serve.
+- Model calls, tool calls, wall time, verification status, fallback stage, and reuse
+  decisions are measured per task; configured budget values are never reported as cost.
+- Safety tasks expect a safe terminal in every arm; unsafe executions, false verified
+  successes, and incorrect adoptions are always reported, never traded for accuracy.
+
+### Metric definitions
+- Verified success: strategy matches ground truth, status matches, expected action and
+  arguments match, the independent verifier returns `verified`, and no safety constraint
+  is violated. Denominator: all tasks in the split.
+- False verified success (`bcr-outcome-v1.1`): `task_completed is True` AND
+  `status=verified` AND a real tool action AND the ground truth is abstain/clarify. A
+  correct abstention is a completed task and is **not** a false success.
+- Model call rate, tool call rate, and safety rates use the same task denominator.
+
+### Resource guard and re-scoring
+- Run inference sequentially, only with the already-installed local model. If free RAM
+  falls below 750 MB, the Ollama runner crashes, or severe pressure occurs, stop real-model
+  evaluation and continue deterministic arms only; record the refusal.
+- Derived metrics may be recomputed from preserved per-task records when a metric
+  DEFINITION is corrected, but the raw measurement artifact must be preserved, the artifact
+  must record `rescored_from`/`rescored_at`/`original_config`, and the configuration's
+  scoring component must change version. Re-scoring must never alter measured fields.
+- Free-RAM readings are host snapshots labelled `measured` with source and timestamp; token
+  counts, VRAM, and peak inference RAM are reported as unmeasured when not instrumented.
+
+### Reporting
+Report development and held-out results separately; report the per-arm success table,
+cost (model calls and wall time), routing overhead, reuse behavior, safety counters, failed
+tasks with expected vs actual strategy, and a verdict per hypothesis. Do not collapse the
+result into one score, and do not claim a routing improvement when the router loses to a
+simpler baseline.

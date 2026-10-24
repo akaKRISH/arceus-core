@@ -120,9 +120,14 @@ def _check_search(
     Zero legitimate hits must NOT be reported as a positive discovery; for a
     genuinely no-result task an empty, well-formed result IS accurate, and
     the task-level score decides completion.
+
+    Classification uses the task INSTRUCTION (first line), matching how the
+    controller routes the task: untrusted metadata lines must not change how
+    the verifier reads the request.
     """
 
-    if classify_task(task) == "content_request":
+    instruction = task.splitlines()[0] if task else ""
+    if classify_task(instruction) == "content_request":
         # A task asking what a document SAYS can never be completed from a
         # metadata-only index, even if the file itself was located.
         return (
@@ -130,7 +135,7 @@ def _check_search(
             "task requires document contents; the index stores metadata only",
             False,
         )
-    if classify_task(task) != "name_search":
+    if classify_task(instruction) != "name_search":
         return (
             "unverified",
             "search executed for a request the classifier does not read as name search",
